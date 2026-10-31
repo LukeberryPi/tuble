@@ -1,0 +1,16 @@
+{
+  "name": "tuble",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "data:network": "bun run scripts/build-network.ts",
+    "data:prompts": "bun run scripts/generate-prompts.ts",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.4.4",
+    "node-html-parser": "^9.0.6",
+    "typescript": "^7.0.2"
+  }
+}
