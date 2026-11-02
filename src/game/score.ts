@@ -14,7 +14,8 @@ export const TIERS: Record<TierId, Tier> = {
   "off-peak": { id: "off-peak", emoji: "💺", name: "Off-Peak", points: 40, meaning: "Half of players said something more common" },
   "night-tube": { id: "night-tube", emoji: "🌙", name: "Night Tube", points: 70, meaning: "80% said something more common" },
   "ghost-station": { id: "ghost-station", emoji: "👻", name: "Ghost Station", points: 100, meaning: "95% said something more common" },
-  "lost-train": { id: "lost-train", emoji: "🏃", name: "Lost the Train", points: 0, meaning: "Out of time" },
+  // The id predates the name, and lives on in saved games and in pages that are already open.
+  "lost-train": { id: "lost-train", emoji: "🏃", name: "Missed the Train", points: 0, meaning: "Out of time" },
 };
 
 /** Correct answers, by the share of players who gave a more common answer. Checked in order. */
@@ -63,7 +64,7 @@ export function shareMoreCommon(shares: Map<string, number>, stationId: string):
   return sum;
 }
 
-/** Running out of time loses the train; correct answers score by how rare they are. */
+/** Running out of time misses the train; correct answers score by how rare they are. */
 export function tierFor(shares: Map<string, number>, stationId: string | null): TierId {
   if (stationId === null || !shares.has(stationId)) return "lost-train";
   const moreCommon = shareMoreCommon(shares, stationId);

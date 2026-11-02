@@ -426,7 +426,7 @@ function Reveal(props: { today: TodayResponse; index: number; result: AnswerResu
         <span className="tier-banner-points">+{result.points}</span>
       </div>
       <div className="reveal-body">
-        <p className="your-answer">{result.correct && station ? <StationName station={station} /> : "You lost the train."}</p>
+        <p className="your-answer">{result.correct && station ? <StationName station={station} /> : "You missed the train."}</p>
         <p className="explain">{explain(result, station)}</p>
 
         <Whiteboard fact={fact} />

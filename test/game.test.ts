@@ -130,7 +130,7 @@ describe("scoring", () => {
     expect(result.players).toBe(0);
   });
 
-  test("running out of time loses the train", () => {
+  test("running out of time misses the train", () => {
     expect(score(null)).toMatchObject({ correct: false, tier: "lost-train", points: 0, share: null });
     expect(score(id("Brixton"))).toMatchObject({ correct: false, tier: "lost-train", points: 0, share: null });
   });

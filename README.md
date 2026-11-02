@@ -18,7 +18,7 @@ Every day, everyone gets the same 7 prompts and 30 seconds for each: name a Tube
   | 💺 Off-Peak | 40 | Half of players said something more common |
   | 🌙 Night Tube | 70 | 80% said something more common |
   | 👻 Ghost Station | 100 | 95% said something more common |
-  | 🏃 Lost the Train | 0 | Out of time |
+  | 🏃 Missed the Train | 0 | Out of time |
 
 - A wrong guess costs nothing but time: the answer box shakes, the guess is crossed off, and the clock keeps running. Only running out of time scores zero.
 - Until enough people have played, each station's yearly passenger count stands in for how often people would say it. It counts as 20 players, so real answers take over within a few dozen plays.
