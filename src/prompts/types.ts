@@ -16,8 +16,8 @@ export type Candidate = {
 export type Context = {
   graph: TubeGraph;
   stations: Station[];
-  /** The busiest stations, busiest first. Used as anchors for "near X" prompts. */
-  landmarks: Station[];
+  /** The busiest stations, busiest first. Used as anchors for "one stop from X" prompts. */
+  busiest: Station[];
   /** The year the usage figures are for. */
   usageYear: number;
 };
@@ -42,6 +42,8 @@ export type Prompt = {
   id: string;
   family: string;
   text: string;
+  /** What follows "Name a station": ["on the Central line"]. */
+  conditions: string[];
   /** Station ids, busiest first: roughly the order players will think of them. */
   answers: string[];
   difficulty: Difficulty;
@@ -57,5 +59,7 @@ export type InterchangePrompt = {
   id: string;
   parts: [string, string];
   text: string;
+  /** One condition from each part: ["on the Central line", "in Zone 1"]. */
+  conditions: [string, string];
   answers: string[];
 };

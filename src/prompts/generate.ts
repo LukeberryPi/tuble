@@ -10,8 +10,8 @@ export const LIMITS = {
   maxAnswers: 100,
   /** Prompts sharing this much of their answers (shared ÷ combined) count as the same prompt. */
   maxOverlap: 0.8,
-  /** How many of the busiest stations can anchor "near X" prompts. */
-  landmarks: 40,
+  /** How many of the busiest stations can anchor "one stop from X" prompts. */
+  busiest: 40,
   interchange: {
     minAnswers: 3,
     maxAnswers: 12,
@@ -58,7 +58,7 @@ export function buildContext(network: Network): Context {
   return {
     graph: new TubeGraph(network),
     stations: network.stations,
-    landmarks: [...network.stations].sort((a, b) => b.usage - a.usage).slice(0, LIMITS.landmarks),
+    busiest: [...network.stations].sort((a, b) => b.usage - a.usage).slice(0, LIMITS.busiest),
     usageYear: network.usageYear,
   };
 }
@@ -100,6 +100,7 @@ export function generatePromptBank(network: Network): PromptBank {
       id: candidate.id,
       family: candidate.family,
       text: `Name a station ${candidate.fragment}`,
+      conditions: [candidate.fragment],
       answers,
       difficulty: difficulty(answers.length),
       spread: answers.some(isObvious) && answers.filter(isQuiet).length >= 2,
@@ -140,6 +141,7 @@ function interchangePrompts(kept: Candidate[], busiestFirst: (ids: Iterable<stri
         id: `${a.id}&${b.id}`,
         parts: [a.id, b.id],
         text: `Name a station ${a.fragment}, ${b.fragment}`,
+        conditions: [a.fragment, b.fragment],
         answers: busiestFirst(shared),
       });
     }

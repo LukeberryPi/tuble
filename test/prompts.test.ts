@@ -26,6 +26,12 @@ describe("the prompt bank", () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
+  test("reads as 'Name a station' and its conditions", () => {
+    for (const prompt of [...bank.prompts, ...bank.interchange]) {
+      expect(prompt.text).toBe(`Name a station ${prompt.conditions.join(", ")}`);
+    }
+  });
+
   test("keeps every prompt within its family's answer limits", () => {
     for (const prompt of bank.prompts) {
       const family = FAMILIES.find((f) => f.id === prompt.family)!;
@@ -62,25 +68,65 @@ describe("prompt answers", () => {
       "Blackhorse Road", // horse
       "Buckhurst Hill", // buck
       "Canary Wharf", // canary
+      "Carpenders Park", // carp
       "Cockfosters", // cock
       "Croxley", // ox
       "East Finchley", // finch
       "Elephant & Castle", // elephant
       "Finchley Central", // finch
       "Finchley Road", // finch
+      "Finchley Road & Frognal", // finch, frog
       "Gants Hill", // ant
       "Goldhawk Road", // hawk
       "Hendon Central", // hen
+      "Hoxton", // ox
       "Lambeth North", // lamb
       "Oxford Circus", // ox
       "Ravenscourt Park", // raven
       "Snaresbrook", // rook
       "Stamford Brook", // rook
       "Stratford", // rat
+      "Turkey Street", // turkey
       "Turnpike Lane", // pike
       "West Finchley", // finch
+      "White Hart Lane", // hart
       "Whitechapel", // ape
     ]);
+  });
+
+  test("counts Tube lines for hubs and 'no other Tube line', ignoring the Overground", () => {
+    expect(answers("hub:3")).not.toContain("Highbury & Islington");
+    expect(answers("line-only:victoria")).toEqual(expect.arrayContaining(["Blackhorse Road", "Pimlico"]));
+    expect(answers("hub:tube-overground")).toEqual(expect.arrayContaining(["Highbury & Islington", "Shepherd's Bush", "Euston"]));
+  });
+
+  test("measures 'further south' from the landmark", () => {
+    // Forest Hill is the Horniman Museum's own station, a little to the south; Balham is 300 m north.
+    expect(answers("compass:south:horniman-museum")).toEqual(expect.arrayContaining(["Forest Hill", "Morden"]));
+    expect(answers("compass:south:horniman-museum")).not.toContain("Balham");
+  });
+
+  test("knows which stations are outside the M25", () => {
+    expect(answers("outside-london:m25")).toEqual([
+      "Amersham",
+      "Chalfont & Latimer",
+      "Chesham",
+      "Cheshunt",
+      "Chorleywood",
+      "Epping",
+      "Theobalds Grove",
+    ]);
+  });
+
+  test("solves the letter puzzles", () => {
+    expect(answers("spelling:consonants-4")).toContain("Knightsbridge");
+    expect(answers("spelling:no-letters:tube")).toContain("Pimlico");
+    expect(answers("spelling:no-letters:tube")).not.toContain("Bank");
+  });
+
+  test("finds the stations far from any other", () => {
+    expect(answers("spacing:lonely")).toEqual(expect.arrayContaining(["Chesham", "Amersham", "Epping"]));
+    expect(answers("spacing:close")).toEqual(expect.arrayContaining(["Leicester Square", "Covent Garden"]));
   });
 
   test("finds colours at the start of words, including Golders Green's two", () => {

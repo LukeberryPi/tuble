@@ -16,9 +16,9 @@ function wordContains(parts: string[]) {
 /** Animals to look for inside words. test/prompts.test.ts pins the exact matches, so an accidental one fails the tests. */
 const ANIMALS = [
   "ant", "ape", "bat", "bear", "bee", "buck", "bull", "canary", "carp", "cat", "cock", "cod", "cow", "crow", "deer",
-  "doe", "dog", "duck", "eel", "elephant", "emu", "ewe", "finch", "fox", "goat", "gnu", "hare", "hawk", "hen", "hog",
-  "horse", "lamb", "lark", "lion", "mole", "moth", "mouse", "newt", "owl", "ox", "pig", "pike", "ram", "rat", "raven",
-  "rook", "seal", "sheep", "slug", "snail", "stag", "swan", "toad", "wasp", "wolf", "wren", "yak",
+  "doe", "dog", "duck", "eel", "elephant", "emu", "ewe", "finch", "fox", "frog", "goat", "gnu", "hare", "hart", "hawk",
+  "hen", "hog", "horse", "lamb", "lark", "lion", "mole", "moth", "mouse", "newt", "owl", "ox", "pig", "pike", "ram", "rat",
+  "raven", "rook", "seal", "sheep", "slug", "snail", "stag", "swan", "toad", "turkey", "wasp", "wolf", "wren", "yak",
 ];
 
 const PLANTS = ["ash", "beech", "birch", "bush", "elm", "fir", "grove", "hazel", "holly", "oak", "pine", "willow", "wood", "yew"];

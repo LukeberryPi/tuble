@@ -5,18 +5,19 @@ export type Station = {
   id: string;
   /** Name as TfL writes it, e.g. "King's Cross St. Pancras". */
   name: string;
+  /** Tube lines first, then Overground lines. */
   lines: LineId[];
-  /** Fare zones. Stations on a zone boundary have two, e.g. [2, 3]. */
+  /** Fare zones. Stations on a zone boundary have two, e.g. [2, 3]. Watford Junction is outside the zones and has none. */
   zones: number[];
   lat: number;
   lon: number;
   /** Local authorities, e.g. ["Camden"] or ["Epping Forest"]. Stations on a boundary have two. */
   boroughs: string[];
-  /** Year the station first opened on the Underground. */
-  opened: number;
+  /** Year the station first opened on the Underground. Null for stations only on the Overground. */
+  opened: number | null;
   /** Entries plus exits per year, in millions. A few stations show 0 for the year; prompts treat that as unknown. */
   usage: number;
-  /** TfL stop ids merged into this station. Paddington, Edgware Road and Hammersmith each have two. */
+  /** TfL stop ids merged into this station: an interchange like Highbury & Islington has a Tube and an Overground one. */
   naptanIds: string[];
 };
 
@@ -33,4 +34,6 @@ export type Network = {
   stations: Station[];
   edges: Edge[];
   routes: Route[];
+  /** Names of stations near London on other railways (National Rail, DLR, trams), which aren't in the game. */
+  otherStations: string[];
 };

@@ -1,0 +1,23 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "tuble",
+  "main": "./worker/index.ts",
+  "compatibility_date": "2026-10-23",
+  "routes": [{ "pattern": "tuble.win", "custom_domain": true }],
+  // Wrangler turns workers.dev off once there are routes. Links shared before tuble.win still use it.
+  "workers_dev": true,
+  "assets": {
+    // Everything except the API is the single-page app.
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "tuble",
+      "database_id": "5033209f-e622-4af4-95bf-0c6c26d3ebd5",
+      "migrations_dir": "./migrations"
+    }
+  ],
+  "observability": { "enabled": true }
+}
