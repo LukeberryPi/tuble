@@ -83,14 +83,15 @@ export function App() {
       return next;
     });
 
+  const finished = index >= total;
   const start = () => {
     // Instantly, so it can't fight the input scrolling itself into view above a phone's keyboard.
     window.scrollTo({ top: 0 });
-    update((previous) => ({ ...previous, startedAt: Date.now() }));
+    update((previous) => (finished ? { results: [], startedAt: Date.now(), replay: true } : { ...previous, startedAt: Date.now() }));
     setScreen("prompt");
   };
   const answered = (result: AnswerResult) => {
-    update((previous) => ({ results: [...previous.results, result], startedAt: null }));
+    update((previous) => ({ ...previous, results: [...previous.results, result], startedAt: null }));
     setUrgent(false);
     setScreen("reveal");
     backToPlatform();
@@ -100,31 +101,52 @@ export function App() {
     setScreen("summary");
     backToPlatform();
   };
+  const show = (to: Screen) => () => {
+    setScreen(to);
+    backToPlatform();
+  };
 
   const visited = progress.results.flatMap((result) => (result.correct && result.stationId ? [stations.get(result.stationId)?.name ?? ""] : []));
   const station = screen === "intro" || screen === "summary" ? "TUBLE" : (visited.at(-1) ?? "TUBLE");
   const train: TrainState = screen === "prompt" ? "standing" : screen === "reveal" ? (latest?.correct ? "leaving" : "leaving-with-pigeon") : "away";
 
   return (
-    <Layout today={today} station={station} train={train} urgent={screen === "prompt" && urgent}>
+    <Layout today={today} station={station} train={train} urgent={screen === "prompt" && urgent} onHome={screen === "summary" ? show("intro") : undefined}>
       {(screen === "prompt" || screen === "reveal") && <LineProgress results={progress.results} total={total} at={screen === "prompt" ? index : index - 1} />}
-      {screen === "intro" && <Intro today={today} onStart={start} />}
+      {screen === "intro" && <Intro today={today} finished={finished} onStart={start} onScore={show("summary")} />}
       {screen === "prompt" && progress.startedAt !== null && (
-        <PromptScreen key={index} today={today} index={index} startedAt={progress.startedAt} onAnswered={answered} onUrgent={setUrgent} />
+        <PromptScreen
+          key={index}
+          today={today}
+          index={index}
+          startedAt={progress.startedAt}
+          replay={progress.replay === true}
+          onAnswered={answered}
+          onUrgent={setUrgent}
+        />
       )}
       {screen === "reveal" && latest && <Reveal key={index} today={today} index={index - 1} result={latest} fact={facts[index - 1]!} onNext={next} />}
-      {screen === "summary" && <Summary today={today} results={progress.results} />}
+      {screen === "summary" && <Summary today={today} results={progress.results} replay={progress.replay === true} onPlayAgain={show("intro")} />}
     </Layout>
   );
 }
 
-function Layout(props: { today?: TodayResponse; station: string; train: TrainState; urgent?: boolean; children: ReactNode }) {
-  const { today, station, train, urgent = false, children } = props;
+function Layout(props: { today?: TodayResponse; station: string; train: TrainState; urgent?: boolean; onHome?: () => void; children: ReactNode }) {
+  const { today, station, train, urgent = false, onHome, children } = props;
   return (
     <>
       <header className="masthead">
         <div className="masthead-inner">
-          <a className="brand" href="/" aria-label="tuble home">
+          <a
+            className="brand"
+            href="/"
+            aria-label="tuble home"
+            onClick={(event) => {
+              if (!onHome) return;
+              event.preventDefault();
+              onHome();
+            }}
+          >
             <Roundel name="" className="brand-roundel" />
             <span className="wordmark">tuble</span>
           </a>
@@ -144,12 +166,15 @@ function Layout(props: { today?: TodayResponse; station: string; train: TrainSta
           An unofficial fan game, not affiliated with Transport for London. Powered by TfL Open Data. Contains OS data © Crown copyright and
           database rights 2016 and Geomni UK Map data © and database rights [2019]. Station facts from Wikipedia (CC BY-SA 4.0).
         </p>
+        <p>
+          made by <a href="https://x.com/LukeberryPi">@LukeberryPi</a> with ❤️
+        </p>
       </footer>
     </>
   );
 }
 
-function Intro({ today, onStart }: { today: TodayResponse; onStart: () => void }) {
+function Intro({ today, finished, onStart, onScore }: { today: TodayResponse; finished: boolean; onStart: () => void; onScore: () => void }) {
   return (
     <section className="intro">
       <h1 className="headline">Name the station nobody else will.</h1>
@@ -192,8 +217,16 @@ function Intro({ today, onStart }: { today: TodayResponse; onStart: () => void }
         </span>
       </p>
       <button className="primary" onClick={onStart} ref={focusOnMount}>
-        Start tuble No. {today.number}
+        {finished ? `Play tuble No. ${today.number} again` : `Start tuble No. ${today.number}`}
       </button>
+      {finished && (
+        <p className="notice">
+          Only your first go counts towards other players' scores.{" "}
+          <button className="link-button" type="button" onClick={onScore}>
+            See your score
+          </button>
+        </p>
+      )}
     </section>
   );
 }
@@ -205,10 +238,11 @@ function PromptScreen(props: {
   today: TodayResponse;
   index: number;
   startedAt: number;
+  replay: boolean;
   onAnswered: (result: AnswerResult) => void;
   onUrgent: (urgent: boolean) => void;
 }) {
-  const { today, index, startedAt, onAnswered, onUrgent } = props;
+  const { today, index, startedAt, replay, onAnswered, onUrgent } = props;
   const prompt = today.prompts[index]!;
   const match = useMemo(() => createMatcher(today.stations, today.otherStations), [today]);
   const stations = useStations(today);
@@ -267,7 +301,7 @@ function PromptScreen(props: {
     if (!guess) return;
     let cancelled = false;
     setFailed(false);
-    sendAnswer(today.date, prompt.id, guess.stationId, guess.timeUp)
+    sendAnswer(today.date, prompt.id, guess.stationId, guess.timeUp, replay)
       .then((outcome) => {
         if (cancelled) return;
         if (outcome.kind === "result") return onAnswered(outcome.result);
@@ -489,13 +523,18 @@ function Whiteboard({ fact }: { fact: string }) {
   );
 }
 
-function Summary({ today, results }: { today: TodayResponse; results: AnswerResult[] }) {
+function Summary(props: { today: TodayResponse; results: AnswerResult[]; replay: boolean; onPlayAgain: () => void }) {
+  const { today, results, replay, onPlayAgain } = props;
   const stations = useStations(today);
   const [shared, setShared] = useState<string | null>(null);
   const score = results.reduce((sum, result) => sum + result.points, 0);
   const best = today.prompts.reduce((sum, prompt) => sum + pointsFor("ghost-station", prompt.interchange), 0);
   const emojis = results.map((result) => TIERS[result.tier].emoji);
-  const shareText = [`tuble No. ${today.number}: ${score}/${best}`, `${emojis.slice(0, -1).join("")} ⇄ ${emojis.at(-1)}`, location.origin].join("\n");
+  const shareText = [
+    `tuble No. ${today.number}${replay ? " (replay)" : ""}: ${score}/${best}`,
+    `${emojis.slice(0, -1).join("")} ⇄ ${emojis.at(-1)}`,
+    location.origin,
+  ].join("\n");
 
   const share = async () => {
     if (navigator.share && matchMedia("(pointer: coarse)").matches) {
@@ -524,6 +563,9 @@ function Summary({ today, results }: { today: TodayResponse; results: AnswerResu
         Share your score
       </button>
       {shared && <p className="shared">{shared}</p>}
+      <button className="secondary" onClick={onPlayAgain}>
+        Play again
+      </button>
 
       <ol className="recap">
         {results.map((result, i) => {

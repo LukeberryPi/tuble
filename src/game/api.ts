@@ -32,6 +32,8 @@ export type AnswerRequest = {
   stationId: string | null;
   player: string;
   timeUp: boolean;
+  /** Playing the day again: scored like any answer, but not recorded. */
+  replay?: boolean;
 };
 
 export type AnswerShare = { id: string; share: number };
