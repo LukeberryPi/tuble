@@ -5,6 +5,8 @@ export type Progress = {
   results: AnswerResult[];
   /** When the current prompt's timer started. Kept so reloading doesn't reset the clock. */
   startedAt: number | null;
+  /** Playing the day again, after finishing it once. */
+  replay?: boolean;
 };
 
 /** What the server made of a guess. A wrong guess isn't recorded, so the player can try again. */
@@ -57,11 +59,11 @@ export async function fetchToday(): Promise<TodayResponse> {
 }
 
 /** Sends a guess. Once time is up the answer is final, even if it doesn't fit. */
-export async function sendAnswer(date: string, promptId: string, stationId: string | null, timeUp: boolean): Promise<Outcome> {
+export async function sendAnswer(date: string, promptId: string, stationId: string | null, timeUp: boolean, replay: boolean): Promise<Outcome> {
   const response = await fetch("/api/answer", {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ date, promptId, stationId, player: playerId(), timeUp }),
+    body: JSON.stringify({ date, promptId, stationId, player: playerId(), timeUp, replay }),
   });
   if (response.status === 422 && !timeUp) return { kind: "wrong" };
   if (!response.ok) throw new Error(`POST /api/answer: ${response.status}`);

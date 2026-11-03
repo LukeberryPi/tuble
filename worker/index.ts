@@ -43,13 +43,14 @@ type ParsedAnswer = AnswerRequest & { legacy: boolean };
 
 function parseAnswer(body: unknown): ParsedAnswer | null {
   if (typeof body !== "object" || body === null) return null;
-  const { date, promptId, stationId, player, timeUp } = body as Record<string, unknown>;
+  const { date, promptId, stationId, player, timeUp, replay } = body as Record<string, unknown>;
   if (typeof date !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
   if (typeof promptId !== "string") return null;
   if (stationId !== null && typeof stationId !== "string") return null;
   if (typeof player !== "string" || !/^[\w-]{8,64}$/.test(player)) return null;
   if (timeUp !== undefined && typeof timeUp !== "boolean") return null;
-  return { date, promptId, stationId, player, timeUp: timeUp ?? true, legacy: timeUp === undefined };
+  if (replay !== undefined && typeof replay !== "boolean") return null;
+  return { date, promptId, stationId, player, timeUp: timeUp ?? true, replay: replay === true, legacy: timeUp === undefined };
 }
 
 const error = (status: number, message: string) => Response.json({ error: message }, { status });
@@ -74,26 +75,32 @@ async function answer(request: Request, env: Env, now: Date): Promise<Response> 
   const stationId = fits || body.legacy ? body.stationId : null;
 
   // The trigger in migrations/0001_answers.sql keeps the tallies up to date.
-  const [, recorded, tallies] = await env.DB.batch<Record<string, unknown>>([
-    env.DB.prepare(
-      "INSERT INTO answers (day, prompt_id, player, station_id, created_at) VALUES (?1, ?2, ?3, ?4, ?5) ON CONFLICT DO NOTHING",
-    ).bind(body.date, body.promptId, body.player, stationId ?? "", now.getTime()),
+  const record = env.DB.prepare(
+    "INSERT INTO answers (day, prompt_id, player, station_id, created_at) VALUES (?1, ?2, ?3, ?4, ?5) ON CONFLICT DO NOTHING",
+  ).bind(body.date, body.promptId, body.player, stationId ?? "", now.getTime());
+  const reads = [
     env.DB.prepare("SELECT station_id FROM answers WHERE day = ?1 AND prompt_id = ?2 AND player = ?3").bind(
       body.date,
       body.promptId,
       body.player,
     ),
     env.DB.prepare("SELECT station_id, players FROM tallies WHERE day = ?1 AND prompt_id = ?2").bind(body.date, body.promptId),
-  ]);
+  ];
+  const [recorded, tallies] = (await env.DB.batch<Record<string, unknown>>(body.replay ? reads : [record, ...reads])).slice(-2);
 
   // Answering twice (say, from two tabs) keeps the first answer.
   const firstAnswer = String(recorded!.results[0]?.station_id ?? "") || null;
   const counts = Object.fromEntries(tallies!.results.map((row) => [String(row.station_id), Number(row.players)]));
+  // A replay is scored as if it had replaced the player's first answer.
+  if (body.replay) {
+    if (recorded!.results.length > 0) counts[firstAnswer ?? ""]! -= 1;
+    counts[stationId ?? ""] = (counts[stationId ?? ""] ?? 0) + 1;
+  }
   const result = resultFor({
     promptId: body.promptId,
     answers: prompt.answers,
     interchange,
-    stationId: firstAnswer,
+    stationId: body.replay ? stationId : firstAnswer,
     counts,
     likelihood: likelihoodFor(body.promptId, usage),
   });
