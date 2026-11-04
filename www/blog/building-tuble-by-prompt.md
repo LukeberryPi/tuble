@@ -32,8 +32,9 @@ position, borough, opening year, and yearly passenger count. From that you can a
 answers. Right now that's 395 prompts across two dozen families — enough for about two months before
 one repeats.
 
-The passenger counts do something nice, too. Before enough people have played, the game guesses how
-rare an answer is from how busy the station actually is. Real answers take over once they come in.
+The passenger counts do something nice, too. Before enough people have played, the game estimates how
+rare an answer is from how busy the station actually is. As real answers come in, they gradually
+outweigh that estimate.
 
 ## Then I asked for whimsy
 
@@ -42,8 +43,8 @@ make wrong guesses shake instead of submitting, drop the timer to thirty seconds
 TfL theme, build a train animation for the score reveal, and "prove to me that you're an amazing
 design engineer."
 
-That one round did the most work by far — hundreds of small edits, and a browser driven two dozen
-times to screenshot the result on desktop, on mobile, and with reduced motion on. What came back:
+That one round ran for about an hour and fifty-one minutes, including tools and checks. The agent
+reported testing on desktop, on mobile, and with reduced motion on. What came back:
 the top of the page is now a Tube platform. The train waits with its doors open while you think, and
 when you answer it pulls out and reveals a roundel with your station's name. If you run out of time,
 a pigeon hops aboard and the train leaves without you. The background is seat moquette. It has the
@@ -53,15 +54,15 @@ whimsy it was missing.
 
 Two moments stand out, and neither was design.
 
-**Deploying to real players.** By the time I shipped the redesign, a handful of people were playing
-that day's puzzle. Changing the rules mid-day — a shorter timer, free retries — would have been
-unfair to anyone already playing. So the Overground answers and the new timing only switch on from
-the next day; the day in progress stays exactly as it was. That's the kind of thing you have to ask
-for, or at least notice.
+**Deploying to real players.** The redesign added Overground stations, a longer timer and free
+retries. The agent preserved the old puzzles' Tube-only answer lists and enabled Overground from
+3 November. It also warned that the timer and retries would change immediately if I deployed that
+afternoon. I asked it to deploy anyway. Keeping the answer lists stable helped, but it didn't make
+the whole change neutral for that day's players.
 
-**Words matter.** I had the game say "You lost the train" when time ran out. A Londoner would say
-"missed the train." I asked for the fix, and it went out as its own small change. Little, but it's
-the difference between sounding local and sounding not.
+**Words matter.** I asked for "You lost the train" when time ran out. The agent implemented it,
+then pointed out that Londoners would usually say "missed the train." I asked for that correction,
+and it went out as its own small change.
 
 ## What the machine was good and bad at
 
@@ -69,16 +70,18 @@ Good at: volume and verification. Generating hundreds of prompts, wiring up a Wo
 screenshots and checking them, catching that a wrong guess shouldn't reach the server. It deployed
 to a custom domain and pushed the whole thing to GitHub from a sentence each.
 
-Needs a human: knowing the first idea was boring, knowing "lost the train" was wrong, knowing not to
-change a game out from under the people playing it. The agent is fast and tireless. The judgement
-was still mine, and the best results came when I spent it.
+My part was choosing the idea, pushing for a more playful design and deciding what to ship. The
+agent also caught things I missed, including my own wording. It needed checking too: two early
+attempts failed with connection errors, a later continuation misread `/compact`, and the first
+version of this audit missed history that was recoverable. The finished page makes the process
+look smoother than the conversation was.
 
 ## By the numbers
 
 - **Live:** [tuble.win](https://tuble.win)
-- **Built across:** a handful of short sessions over five days
+- **Built across:** several sessions over five days, including retries and interruptions
 - **Stations in the data:** 352 (269 Tube, 83 Overground-only)
 - **Prompts generated:** 395 regular, plus ~1,500 double-points "Interchange" rounds
-- **The heavy round:** the redesign — hundreds of edits and two dozen browser checks in one go
+- **The heavy round:** the redesign — about 1h 51m from recorded run start to finish, including checks
 
 The receipts, round by round with timings, are in [the audit log](./tuble-build-audit-log.md).
