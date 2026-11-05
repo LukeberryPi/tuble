@@ -371,7 +371,7 @@ function PromptScreen(props: {
             readOnly={final}
             placeholder="Type a station"
             aria-label="Your station"
-            autoFocus
+            autoFocus={matchMedia("(pointer: fine)").matches}
             autoComplete="off"
             autoCorrect="off"
             autoCapitalize="words"
@@ -549,6 +549,45 @@ function Summary(props: { today: TodayResponse; results: AnswerResult[]; replay:
     }
   };
 
+  const exportImage = async () => {
+    try {
+      const canvas = document.createElement("canvas");
+      canvas.width = canvas.height = 1080;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) throw new Error("Canvas unavailable");
+      ctx.fillStyle = "#f6f1e7";
+      ctx.fillRect(0, 0, 1080, 1080);
+      ctx.textAlign = "center";
+      ctx.fillStyle = "#dc241f";
+      ctx.fillRect(100, 260, 880, 18);
+      ctx.fillRect(100, 802, 880, 18);
+      ctx.fillStyle = "#172b50";
+      ctx.font = "bold 110px sans-serif";
+      ctx.fillText("tuble", 540, 200);
+      ctx.font = "36px sans-serif";
+      ctx.fillText(`No. ${today.number}${replay ? " · replay" : ""} · ${formatDate(today.date)}`, 540, 350);
+      ctx.font = "bold 140px sans-serif";
+      ctx.fillText(`${score}/${best}`, 540, 530);
+      ctx.font = "64px sans-serif";
+      ctx.fillText(emojis.slice(0, -1).join(" "), 540, 660, 940);
+      ctx.fillText(`⇄ ${emojis.at(-1)}`, 540, 755);
+      ctx.font = "40px sans-serif";
+      ctx.fillText(location.host, 540, 930);
+      const blob = await new Promise<Blob>((resolve, reject) => canvas.toBlob(
+        (value) => value ? resolve(value) : reject(new Error("Image export failed")), "image/png",
+      ));
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `tuble-${today.number}.png`;
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 60_000);
+      setShared("Image downloaded");
+    } catch {
+      setShared("Couldn't create the image. Please try again.");
+    }
+  };
+
   return (
     <section className="summary">
       <p className="lead">
@@ -562,7 +601,8 @@ function Summary(props: { today: TodayResponse; results: AnswerResult[]; replay:
       <button className="primary" onClick={share}>
         Share your score
       </button>
-      {shared && <p className="shared">{shared}</p>}
+      <button className="secondary" onClick={exportImage}>Save score image</button>
+      {shared && <p className="shared" role="status">{shared}</p>}
       <button className="secondary" onClick={onPlayAgain}>
         Play again
       </button>
