@@ -1,3 +1,4 @@
+import type { Mode } from "../lines.ts";
 import type { TierId } from "./score.ts";
 
 /** GET /api/today */
@@ -5,8 +6,11 @@ export type TodayResponse = {
   date: string;
   number: number;
   prompts: TodayPrompt[];
-  /** Whether Overground stations count. When they don't, they're among `otherStations`. */
+  /** The kinds of railway whose stations count today. Stations on the others are among `otherStations`. */
+  modes: Mode[];
+  /** Whether Overground stations count. Kept for pages loaded before `modes`. */
   overground: boolean;
+  /** Stations that count today, with only today's lines. */
   stations: { id: string; name: string; lines: string[] }[];
   /** Stations on other railways, so the game can tell players East Croydon isn't one of ours. */
   otherStations: string[];

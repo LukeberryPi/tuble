@@ -3,7 +3,7 @@ import { LINE_FACTS, STATION_FACTS, pickFacts } from "../app/facts.ts";
 import networkJson from "../data/network.json";
 import promptsJson from "../data/prompts.json";
 import scheduleJson from "../data/schedule.json";
-import { LAUNCH_DATE, addDays, londonDate, msUntilNextPuzzle, puzzleNumber } from "../src/game/day.ts";
+import { LAUNCH_DATE, addDays, londonDate, modesOn, msUntilNextPuzzle, puzzleNumber, stationsOn, usageOn } from "../src/game/day.ts";
 import { createMatcher } from "../src/game/match.ts";
 import { resultFor } from "../src/game/result.ts";
 import { REGULAR_PROMPTS_PER_DAY, buildSchedule, scheduleFor, type ScheduleDay } from "../src/game/schedule.ts";
@@ -70,12 +70,19 @@ describe("matching what players type", () => {
   });
 
   test("knows stations on other railways, rather than taking them for a slip", () => {
-    expect(match("East Croydon")).toEqual({ kind: "elsewhere", name: "East Croydon" });
+    expect(match("South Croydon")).toEqual({ kind: "elsewhere", name: "South Croydon" });
     expect(match("Battersea Park")).toEqual({ kind: "elsewhere", name: "Battersea Park" });
     expect(match("Catfrod")).toEqual({ kind: "elsewhere", name: "Catford" });
-    expect(match("Stratford International")).toEqual({ kind: "elsewhere", name: "Stratford International" });
     expect(match("Waterloo East")).toEqual({ kind: "elsewhere", name: "Waterloo East" });
     expect(match("xyz")).toEqual({ kind: "none" });
+  });
+
+  test("knows the Elizabeth line, DLR and trams", () => {
+    expect(match("Manor Park")).toEqual({ kind: "station", id: id("Manor Park") });
+    expect(match("Maidenhead")).toEqual({ kind: "station", id: id("Maidenhead") });
+    expect(match("East Croydon")).toEqual({ kind: "station", id: id("East Croydon") });
+    expect(match("Stratford International")).toEqual({ kind: "station", id: id("Stratford International") });
+    expect(match("City Airport")).toEqual({ kind: "station", id: id("London City Airport") });
   });
 
   test("short names must be spelt exactly", () => {
@@ -85,6 +92,36 @@ describe("matching what players type", () => {
 });
 
 describe("days", () => {
+  test("only count the railways that had joined the game by then", () => {
+    expect(modesOn("2026-11-02")).toEqual(["tube"]);
+    expect(modesOn("2026-11-05")).toEqual(["tube", "overground"]);
+    expect(modesOn("2026-11-06")).toEqual(["tube", "overground", "elizabeth", "dlr", "tram"]);
+
+    const before = stationsOn("2026-11-05", network.stations);
+    expect(before.elsewhere).toEqual(expect.arrayContaining(["Manor Park", "Mudchute", "East Croydon"]));
+    expect(before.stations.find((s) => s.name === "Canary Wharf")!.lines).toEqual(["jubilee"]);
+    expect(before.stations.find((s) => s.name === "Shadwell")!.lines).toEqual(["windrush"]);
+
+    // Played days score as they did before Canary Wharf's DLR and Elizabeth line counts were added.
+    const zone1 = schedule.find((day) => day.date === "2026-11-05")!.prompts.find((p) => p.id === "zone:1")!;
+    const score = (date: string) =>
+      resultFor({
+        promptId: zone1.id,
+        answers: zone1.answers,
+        interchange: false,
+        stationId: "covent-garden",
+        counts: {},
+        likelihood: likelihoodFor(zone1.id, usageOn(date, network.stations)),
+      }).tier;
+    expect(score("2026-11-05")).toBe("off-peak");
+    expect(usageOn("2026-11-05", network.stations).get("canary-wharf")).toBe(33.18);
+    expect(usageOn("2026-11-06", network.stations).get("canary-wharf")).toBe(61.73);
+
+    const after = stationsOn("2026-11-06", network.stations);
+    expect(after.elsewhere).toEqual([]);
+    expect(after.stations.find((s) => s.name === "Canary Wharf")!.lines).toEqual(["jubilee", "elizabeth", "dlr"]);
+  });
+
   test("change at midnight in London, in summer and winter", () => {
     expect(londonDate(new Date("2026-10-31T23:30:00Z"))).toBe("2026-10-31"); // GMT
     expect(londonDate(new Date("2026-10-31T00:30:00Z"))).toBe("2026-10-31");
@@ -208,6 +245,15 @@ describe("the schedule", () => {
       for (const prompt of [...day.prompts, day.interchange]) {
         expect(prompt.answers.length).toBeGreaterThan(0);
         for (const answer of prompt.answers) expect(stationIds.has(answer)).toBe(true);
+      }
+    }
+  });
+
+  test("only has answers on the railways that count that day", () => {
+    for (const day of schedule) {
+      const counting = new Set(stationsOn(day.date, network.stations).stations.map((station) => station.id));
+      for (const prompt of [...day.prompts, day.interchange]) {
+        for (const answer of prompt.answers) expect(counting.has(answer)).toBe(true);
       }
     }
   });

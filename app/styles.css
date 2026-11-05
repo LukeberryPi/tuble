@@ -1044,8 +1044,8 @@ button {
   background: var(--line);
 }
 
-/* The Overground is drawn as a double line. */
-.line-chip-overground {
+/* Like the map, everything but the Tube is drawn as a double line. */
+.line-chip-double {
   background: linear-gradient(var(--line) 0 32%, #fff 32% 68%, var(--line) 68%);
 }
 

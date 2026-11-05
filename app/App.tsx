@@ -3,7 +3,7 @@ import type { AnswerResult, TodayPrompt, TodayResponse } from "../src/game/api.t
 import { msUntilNextPuzzle } from "../src/game/day.ts";
 import { createMatcher } from "../src/game/match.ts";
 import { pointsFor, TIERS, type TierId } from "../src/game/score.ts";
-import { LINES } from "../src/lines.ts";
+import { LINES, lineLabel, type Mode } from "../src/lines.ts";
 import { pickFacts } from "./facts.ts";
 import { Platform, type TrainState } from "./Platform.tsx";
 import { Roundel } from "./Roundel.tsx";
@@ -20,8 +20,18 @@ type Station = TodayResponse["stations"][number];
 type Screen = "intro" | "prompt" | "reveal" | "summary";
 
 const LINE_COLOURS = new Map<string, string>(LINES.map((line) => [line.id, line.colour]));
-const LINE_NAMES = new Map<string, string>(LINES.map((line) => [line.id, `${line.name} ${line.mode === "tube" ? "line" : "line (Overground)"}`]));
-const OVERGROUND = new Set<string>(LINES.filter((line) => line.mode === "overground").map((line) => line.id));
+const LINE_NAMES = new Map<string, string>(
+  LINES.map((line) => [line.id, `${lineLabel(line)}${line.mode === "overground" ? " (Overground)" : ""}`]),
+);
+/** Lines the map draws as a double line: everything but the Tube. */
+const DOUBLE = new Set<string>(LINES.filter((line) => line.mode !== "tube").map((line) => line.id));
+const MODE_NAMES: Record<Mode, string> = { tube: "Tube", overground: "Overground", elizabeth: "Elizabeth line", dlr: "DLR", tram: "trams" };
+
+/** "Tube, Overground, Elizabeth line, DLR or trams". Pages served before `modes` existed only get `overground`. */
+function modeList(today: TodayResponse): string {
+  const names = (today.modes ?? (today.overground ? ["tube", "overground"] : ["tube"])).map((mode) => MODE_NAMES[mode]);
+  return names.length > 1 ? `${names.slice(0, -1).join(", ")} or ${names.at(-1)}` : names[0]!;
+}
 const TIER_ORDER: TierId[] = ["rush-hour", "off-peak", "night-tube", "ghost-station", "lost-train"];
 
 function firstScreen(progress: Progress, total: number): Screen {
@@ -186,7 +196,7 @@ function Intro({ today, finished, onStart, onScore }: { today: TodayResponse; fi
         </li>
         <li>
           <span>
-            Name <strong>any {today.overground ? "Tube or Overground station" : "Tube station"}</strong> that fits. Wrong guesses
+            Name <strong>any station on the {modeList(today)}</strong> that fits. Wrong guesses
             bounce off, so keep trying.
           </span>
         </li>
@@ -338,7 +348,7 @@ function PromptScreen(props: {
       say("Which one?");
     } else if (typed.kind === "vague") say("Keep typing: lots of stations start like that.");
     else if (typed.kind === "elsewhere") {
-      say(`${typed.name} isn't on the Tube${today.overground ? " or the Overground" : ""}.`);
+      say(`${typed.name} isn't on the ${modeList(today)}.`);
       shake();
     } else if (!text.trim()) say("Type a station name.");
     else {
@@ -726,7 +736,7 @@ function StationName({ station }: { station: Station }) {
         {station.lines.map((line) => (
           <span
             key={line}
-            className={`line-chip${OVERGROUND.has(line) ? " line-chip-overground" : ""}`}
+            className={`line-chip${DOUBLE.has(line) ? " line-chip-double" : ""}`}
             style={{ "--line": LINE_COLOURS.get(line) } as CSSProperties}
             title={LINE_NAMES.get(line)}
           />

@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import networkJson from "../data/network.json";
 import { TubeGraph } from "../src/graph.ts";
-import { isTubeLine } from "../src/lines.ts";
+import { isTubeLine, modeOf } from "../src/lines.ts";
 import type { Network } from "../src/network.ts";
 
 const network = networkJson as Network;
@@ -15,18 +15,23 @@ function id(name: string): string {
 
 const names = (ids: string[]) => ids.map((stationId) => graph.station(stationId).name).sort();
 
-test("has every Tube and Overground station once", () => {
-  expect(network.stations).toHaveLength(352);
-  expect(network.stations.filter((s) => s.lines.every((line) => !isTubeLine(line)))).toHaveLength(83);
+test("has every Tube, Overground, Elizabeth line, DLR and tram station once", () => {
+  expect(network.stations).toHaveLength(455);
+  const only = (mode: string) => network.stations.filter((s) => s.lines.every((line) => modeOf(line) === mode)).length;
+  expect([only("overground"), only("elizabeth"), only("dlr"), only("tram")]).toEqual([80, 27, 38, 37]);
   expect(new Set(network.stations.map((s) => s.id)).size).toBe(network.stations.length);
 });
 
 test("merges the stations TfL splits in two", () => {
-  const tubeOnly = network.stations.filter((s) => s.naptanIds.length > 1 && s.lines.every(isTubeLine)).map((s) => s.name);
-  expect(tubeOnly.sort()).toEqual(["Edgware Road", "Hammersmith", "Paddington"]);
+  // Tube stop ids start 940GZZLU.
+  const split = network.stations.filter((s) => s.naptanIds.filter((id) => id.startsWith("940GZZLU")).length > 1).map((s) => s.name);
+  expect(split.sort()).toEqual(["Edgware Road", "Hammersmith", "Paddington"]);
 });
 
-test("merges the Tube and Overground halves of an interchange", () => {
+test("merges the halves of an interchange", () => {
+  expect(graph.station(id("Canary Wharf")).lines).toEqual(["jubilee", "elizabeth", "dlr"]);
+  expect(graph.station(id("Custom House")).lines).toEqual(["elizabeth", "dlr"]);
+  expect(graph.station(id("Wimbledon")).lines).toEqual(["district", "tram"]);
   expect(graph.station(id("Highbury & Islington")).lines).toEqual(["victoria", "mildmay", "windrush"]);
   expect(graph.station(id("Shepherd's Bush")).lines).toEqual(["central", "mildmay"]);
   expect(graph.station(id("Euston")).lines).toEqual(["northern", "victoria", "lioness"]);
@@ -39,9 +44,25 @@ test("has a borough, zone and usage figure for stations only on the Overground",
   expect(graph.station(id("Watford Junction")).zones).toEqual([]);
 });
 
+test("leaves the Elizabeth line beyond the zones, and trams, without a zone", () => {
+  expect(graph.station(id("Reading")).zones).toEqual([]);
+  expect(graph.station(id("Ampere Way")).zones).toEqual([]);
+  expect(graph.station(id("Brentwood")).zones).toEqual([9]);
+  expect(graph.station(id("Wimbledon")).zones).toEqual([3]);
+});
+
+test("gives each tram stop the same share of tram journeys, and other stations their own count", () => {
+  const tramOnly = network.stations.filter((s) => s.lines.every((line) => line === "tram"));
+  expect(new Set(tramOnly.map((s) => s.usage)).size).toBe(1);
+  expect(tramOnly[0]!.usage).toBeGreaterThan(0);
+  expect(graph.station(id("Woolwich")).usage).toBeGreaterThan(graph.station(id("Iver")).usage);
+});
+
 test("knows the names of stations on other railways, but not ours", () => {
-  expect(network.otherStations).toEqual(expect.arrayContaining(["East Croydon", "Cutty Sark", "Battersea Park"]));
-  for (const name of ["Richmond", "Stratford", "Kensington", "King's Cross", "Tooting"]) expect(network.otherStations).not.toContain(name);
+  expect(network.otherStations).toEqual(expect.arrayContaining(["Battersea Park", "Catford", "Waterloo East"]));
+  for (const name of ["Richmond", "Stratford", "Kensington", "King's Cross", "Tooting", "East Croydon", "Cutty Sark"]) {
+    expect(network.otherStations).not.toContain(name);
+  }
 });
 
 test("every station can be reached from Bank", () => {

@@ -1,6 +1,6 @@
 import { kmBetween } from "../geo.ts";
 import { LANDMARKS } from "../landmarks.ts";
-import { LINES, TUBE_LINES, isOvergroundLine, isTubeLine } from "../lines.ts";
+import { LINES, TUBE_LINES, isOvergroundLine, isTubeLine, modeOf, theLine, type Line, type Mode } from "../lines.ts";
 import { nameWords, slugify } from "../names.ts";
 import type { Station } from "../network.ts";
 import { boroughPhrase, isInLondon, isSouthOfTheRiver } from "../places.ts";
@@ -12,8 +12,12 @@ const ALPHABET = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
 /**
  * Stations outside the M25, checked against the motorway's route on OpenStreetMap. Theobalds
  * Grove is just north of the Holmesdale Tunnel at Waltham Cross; Theydon Bois is just inside.
+ * On the Elizabeth line, Iver is just west of it and Harold Wood just inside.
  */
-const OUTSIDE_THE_M25 = ["amersham", "chalfont-and-latimer", "chesham", "chorleywood", "epping", "cheshunt", "theobalds-grove"];
+const OUTSIDE_THE_M25 = [
+  "amersham", "chalfont-and-latimer", "chesham", "chorleywood", "epping", "cheshunt", "theobalds-grove",
+  "iver", "langley", "slough", "burnham", "taplow", "maidenhead", "twyford", "reading", "brentwood", "shenfield",
+];
 
 /** Words for "shares no letters with the word…". */
 const NO_LETTERS_FROM = ["tube", "london", "zone", "river", "queen", "king"];
@@ -50,6 +54,19 @@ function capitalise(word: string): string {
 
 const tubeLinesAt = (station: Station) => station.lines.filter(isTubeLine);
 const overgroundLinesAt = (station: Station) => station.lines.filter(isOvergroundLine);
+const hasMode = (station: Station, mode: Mode) => station.lines.some((line) => modeOf(line) === mode);
+
+/** "the Central and Jubilee lines", "the Jubilee line and the DLR". */
+function lineNames(a: Line, b: Line): string {
+  const [theA, theB] = [theLine(a), theLine(b)];
+  if (theA.endsWith(" line") && theB.endsWith(" line")) return `the ${a.name} and ${b.name} lines`;
+  return `${theA} and ${theB}`;
+}
+
+/** "at the very end of the Central line". Trams run on routes that end in four places. */
+function endOf(line: Line): string {
+  return line.mode === "tram" ? "at the end of a tram route" : `at the very end of ${theLine(line)}`;
+}
 const letters = (station: Station) => station.name.toLowerCase().replace(/[^a-z]/g, "");
 
 /** The longest run of consonants inside one word. Y counts as a vowel: "Kingsbury" has "ngsb". */
@@ -67,7 +84,7 @@ export const FAMILIES: Family[] = [
     label: "On a line",
     generate: (ctx) =>
       LINES.map((line) =>
-        candidate("line", line.id, `on the ${line.name} line`, matching(ctx, (s) => s.lines.includes(line.id))),
+        candidate("line", line.id, `on ${theLine(line)}`, matching(ctx, (s) => s.lines.includes(line.id))),
       ),
   },
   {
@@ -105,7 +122,7 @@ export const FAMILIES: Family[] = [
         candidate("line-end", "any", "at the very end of a Tube line", endsOf("tube")),
         candidate("line-end", "overground", "at the very end of an Overground line", endsOf("overground")),
         ...ends.map(({ line, ends }) =>
-          candidate("line-end", line.id, `at the very end of the ${line.name} line`, ends, false),
+          candidate("line-end", line.id, endOf(line), ends, false),
         ),
       ];
     },
@@ -124,6 +141,18 @@ export const FAMILIES: Family[] = [
         matching(ctx, (s) => tubeLinesAt(s).length > 0 && overgroundLinesAt(s).length > 0),
       ),
       candidate("hub", "overground-2", "where two Overground lines meet", matching(ctx, (s) => overgroundLinesAt(s).length >= 2)),
+      candidate(
+        "hub",
+        "tube-elizabeth",
+        "where you can change between the Tube and the Elizabeth line",
+        matching(ctx, (s) => tubeLinesAt(s).length > 0 && hasMode(s, "elizabeth")),
+      ),
+      candidate(
+        "hub",
+        "tube-dlr",
+        "where you can change between the Tube and the DLR",
+        matching(ctx, (s) => tubeLinesAt(s).length > 0 && hasMode(s, "dlr")),
+      ),
     ],
   },
   {
@@ -210,7 +239,7 @@ export const FAMILIES: Family[] = [
           candidate(
             "line-pair",
             `${a.id}+${b.id}`,
-            `where you can change between the ${a.name} and ${b.name} lines`,
+            `where you can change between ${lineNames(a, b)}`,
             matching(ctx, (s) => s.lines.includes(a.id) && s.lines.includes(b.id)),
             false,
           ),
@@ -226,7 +255,7 @@ export const FAMILIES: Family[] = [
           candidate(
             "line-zone",
             `${line.id}:${zone}`,
-            `on the ${line.name} line in Zone ${zone}`,
+            `on ${theLine(line)} in Zone ${zone}`,
             matching(ctx, (s) => s.lines.includes(line.id) && s.zones.includes(zone)),
             false,
           ),
@@ -305,7 +334,7 @@ export const FAMILIES: Family[] = [
             candidate(
               "line-compass",
               `${line.id}:${direction}:${place.id}`,
-              `on the ${line.name} line further ${direction} than ${place.name}`,
+              `on ${theLine(line)} further ${direction} than ${place.name}`,
               onLine.filter((s) => beyond(s, place)).map((s) => s.id),
               false,
             ),
@@ -385,7 +414,7 @@ export const FAMILIES: Family[] = [
               candidate(
                 "between",
                 `${line.id}:${first!.id}:${second!.id}`,
-                `between ${first!.name} and ${second!.name} on the ${line.name} line`,
+                `between ${first!.name} and ${second!.name} on ${theLine(line)}`,
                 route,
                 false,
               ),

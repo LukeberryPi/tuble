@@ -1,14 +1,16 @@
 /**
- * Builds data/network.json: every Underground and Overground station with its lines, zones,
- * position, borough, opening year and usage, plus the track between neighbouring stations.
+ * Builds data/network.json: every Underground, Overground, Elizabeth line, DLR and tram station
+ * with its lines, zones, position, borough, opening year and usage, plus the track between
+ * neighbouring stations.
  *
  * Sources:
  * - TfL Unified API route sequences: stations, zones, coordinates, the order of stops and the
- *   end-to-end routes trains run, for every Tube and Overground line.
+ *   end-to-end routes trains run, for every line.
  * - Wikipedia's "List of London Underground stations": borough, opening year and annual usage
  *   of Tube stations.
- * - TfL's annual station counts: usage of stations only on the Overground.
- * - postcodes.io: the borough of stations only on the Overground, from their coordinates.
+ * - TfL's annual station counts: usage of Overground, Elizabeth line and DLR stations.
+ * - The DfT's light rail statistics: journeys on London Trams, which aren't counted by stop.
+ * - postcodes.io: the borough of stations not on the Tube, from their coordinates.
  *
  * Run with `bun run data:network`. Set TFL_APP_KEY to avoid TfL's anonymous rate limit.
  * Reading TfL's counts spreadsheet needs the `unzip` command.
@@ -18,7 +20,7 @@ import { join } from "node:path";
 import { parse, type HTMLElement } from "node-html-parser";
 import { ALIASES, looseKey } from "../src/game/match.ts";
 import { kmBetween } from "../src/geo.ts";
-import { LINES, isTubeLine, type LineId } from "../src/lines.ts";
+import { LINES, isOvergroundLine, isTubeLine, modeOf, type LineId } from "../src/lines.ts";
 import { nameKey, slugify } from "../src/names.ts";
 import type { Edge, Network, Route, Station } from "../src/network.ts";
 
@@ -43,10 +45,11 @@ const BOROUGH_NAMES: Record<string, string> = { Richmond: "Richmond upon Thames"
 /** postcodes.io names a few districts differently from Wikipedia. */
 const DISTRICT_NAMES: Record<string, string> = { Westminster: "City of Westminster" };
 
-/** Overground names that TfL writes differently from the signs on the platform. */
-const OVERGROUND_NAMES: Record<string, string> = {
+/** Names that TfL writes differently from the signs on the platform. */
+const RAIL_NAMES: Record<string, string> = {
   "London Euston": "Euston",
   "London Liverpool Street": "Liverpool Street",
+  "London Paddington": "Paddington",
   "New Cross ELL": "New Cross",
   "Walthamstow Queens Road": "Walthamstow Queen's Road",
 };
@@ -55,11 +58,18 @@ const OVERGROUND_NAMES: Record<string, string> = {
 const ZONES: Record<string, number[]> = { "Clapham Junction": [2], "Watford Junction": [] };
 
 /**
+ * London Trams journeys in the year to March 2025, in millions, from the DfT's light rail and
+ * tram statistics (table LRT0101). TfL doesn't count trams stop by stop, so each stop is given
+ * an equal share: one boarding and one alighting per journey, like entries and exits.
+ */
+const TRAM_JOURNEYS = 17.2;
+
+/**
  * Other railways in London. Their stations aren't in the game, but players will type them, and
  * "East Croydon" shouldn't be mistaken for West Croydon.
  */
 const OTHER_LINES = [
-  "dlr", "elizabeth", "tram", "avanti-west-coast", "c2c", "chiltern-railways", "gatwick-express", "greater-anglia",
+  "avanti-west-coast", "c2c", "chiltern-railways", "gatwick-express", "greater-anglia",
   "great-northern", "great-western-railway", "heathrow-express", "southeastern", "southern", "south-western-railway",
   "thameslink", "west-midlands-trains",
 ];
@@ -75,23 +85,27 @@ async function getJson<T>(url: string, init?: RequestInit): Promise<T> {
 
 /**
  * "Edgware Road (Circle Line) Underground Station" -> "Edgware Road". Keeps "Kensington (Olympia)".
- * "Richmond (London) Rail Station" -> "Richmond".
+ * "Richmond (London) Rail Station" -> "Richmond". "Custom House (for ExCel) DLR Station" -> "Custom House".
  */
 function cleanTflName(raw: string): string {
   const name = raw
     .replace(/\s*Underground Station$/, "")
     .replace(/-Underground$/, "")
-    .replace(/\s*Rail Station$/, "")
-    .replace(/\s*\((?:Bakerloo|Central|Circle Line|H&C Line|Dist&Picc Line|London)\)/, "")
+    .replace(/\s*(?:Rail Station|DLR Station|Tram Stop)$/, "")
+    .replace(/\s*\((?:Bakerloo|Central|Circle Line|H&C Line|Dist&Picc Line|London|Berks|for [^)]*)\)/, "")
     .trim();
-  return OVERGROUND_NAMES[name] ?? name;
+  return RAIL_NAMES[name] ?? name;
 }
 
-/** "2+3" or "2/3" -> [2, 3]. */
-function parseZones(name: string, zone: string | undefined): number[] {
+/**
+ * "2+3" or "2/3" -> [2, 3]. The Elizabeth line runs beyond the zones to Reading and Shenfield,
+ * and trams have no zones, so their stops can have none.
+ */
+function parseZones(stop: Stop, name: string): number[] {
   if (name in ZONES) return ZONES[name]!;
-  const zones = [...(zone ?? "").matchAll(/\d+/g)].map((match) => Number(match[0]));
-  if (zones.length === 0) throw new Error(`No zone for ${name}: "${zone}"`);
+  const zones = [...(stop.zone ?? "").matchAll(/\d+/g)].map((match) => Number(match[0]));
+  const zoneless = [...stop.lines].every((line) => modeOf(line) === "elizabeth" || modeOf(line) === "tram");
+  if (zones.length === 0 && !zoneless) throw new Error(`No zone for ${name}: "${stop.zone}"`);
   return zones;
 }
 
@@ -203,27 +217,27 @@ async function readSpreadsheet(url: string): Promise<Record<string, string>[]> {
 }
 
 /**
- * Overground usage in millions, by name key. TfL counts a station shared with another mode once,
- * under that mode: most interchanges with the Tube are in the Tube's figure, and Romford is in
- * the Elizabeth line's. A few interchanges have their Overground station counted separately,
- * like Bethnal Green's, which is a different building from the Tube station.
+ * Overground, Elizabeth line and DLR usage in millions, by name key. Tube usage comes from
+ * Wikipedia. TfL counts a station shared between modes once, under one of them, and shows "---"
+ * for the others: most interchanges with the Tube are in the Tube's figure. Some interchanges
+ * are counted separately for each mode, like Canary Wharf, whose Jubilee, DLR and Elizabeth line
+ * stations are different buildings. Those figures are added up.
  */
-async function fetchOvergroundUsage(): Promise<Map<string, number>> {
+async function fetchRailUsage(): Promise<Map<string, number>> {
   const rows = await readSpreadsheet(COUNTS_URL);
   // Columns: A mode, D station, S annualised entries and exits.
   const usage = new Map<string, number>();
-  for (const row of rows.filter((row) => row.A === "LO")) {
-    const station = row.D!;
-    let count = Number(row.S);
+  for (const row of rows.filter((row) => row.A === "LO" || row.A === "EZL" || row.A === "DLR")) {
+    const count = Number(row.S);
     if (!Number.isFinite(count)) {
-      if (rows.some((other) => other.A === "LU" && other.D === station)) continue;
-      count = Number(rows.find((other) => other.D === station && Number.isFinite(Number(other.S)))?.S);
+      if (row.S !== "---") throw new Error(`Unreadable count for ${row.D}: "${row.S}"`);
+      continue;
     }
-    if (!(count > 0)) throw new Error(`No Overground count for ${station}: "${row.S}"`);
-    const name = station.replace(/ (LO|NR)$/, "").replace(/ Jn$/, " Junction");
-    usage.set(nameKey(name), round(count / 1e6, 2));
+    if (!(count > 0)) throw new Error(`No count for ${row.D}: "${row.S}"`);
+    const key = nameKey(row.D!.replace(/ (LO|NR|EL|DLR|LU|TfL)$/, "").replace(/ Jn$/, " Junction"));
+    usage.set(key, (usage.get(key) ?? 0) + count / 1e6);
   }
-  return usage;
+  return new Map([...usage].map(([key, count]) => [key, round(count, 2)]));
 }
 
 /**
@@ -263,7 +277,7 @@ async function fetchBoroughs(points: { lat: number; lon: number }[]): Promise<st
     });
     for (const { result } of data.result) {
       const district = result?.[0]?.admin_district;
-      if (!district) throw new Error("No postcode near an Overground station");
+      if (!district) throw new Error("No postcode near a station");
       boroughs.push(DISTRICT_NAMES[district] ?? district);
     }
   }
@@ -281,7 +295,7 @@ function centre(stops: Stop[]) {
 }
 
 async function main() {
-  const [tfl, wikipedia, overgroundUsage] = await Promise.all([fetchTfl(), fetchWikipedia(), fetchOvergroundUsage()]);
+  const [tfl, wikipedia, railUsage] = await Promise.all([fetchTfl(), fetchWikipedia(), fetchRailUsage()]);
   if (wikipedia.usageYear !== COUNTS_YEAR) {
     throw new Error(`Wikipedia's Tube usage is for ${wikipedia.usageYear}; point COUNTS_URL at TfL's counts for that year`);
   }
@@ -302,24 +316,28 @@ async function main() {
   }
 
   // Group TfL stops by name, so each name players might type is one station. That merges the
-  // Tube and Overground halves of interchanges like Highbury & Islington.
+  // halves of interchanges like Highbury & Islington (Tube and Overground) or Canary Wharf
+  // (Tube, DLR and Elizabeth line).
+  const rank = (stop: Stop) => ([...stop.lines].some(isTubeLine) ? 0 : [...stop.lines].some(isOvergroundLine) ? 1 : 2);
   const stopsByKey = new Map<string, { name: string; stops: Stop[] }>();
-  for (const stop of tfl.stops) {
+  for (const stop of [...tfl.stops].sort((a, b) => rank(a) - rank(b))) {
     const name = cleanTflName(stop.name);
     const key = nameKey(name);
+    // The Tube's spelling wins, then the Overground's: "Shepherd's Bush" over "Shepherds Bush".
     const group = stopsByKey.get(key) ?? { name, stops: [] };
-    // The Tube's spelling wins: "Shepherd's Bush" over the Overground's "Shepherds Bush".
-    if ([...stop.lines].some(isTubeLine)) group.name = name;
     group.stops.push(stop);
     stopsByKey.set(key, group);
   }
 
   const groups = [...stopsByKey.entries()].map(([key, { name, stops }]) => {
-    const tubeStops = stops.filter((stop) => [...stop.lines].some(isTubeLine));
-    return { key, name, stops, tube: tubeStops.length > 0, position: centre(tubeStops.length > 0 ? tubeStops : stops) };
+    // A station is where its Tube platforms are, or else its Overground ones, or else any.
+    const best = Math.min(...stops.map(rank));
+    return { key, name, stops, tube: best === 0, position: centre(stops.filter((stop) => rank(stop) === best)) };
   });
-  const overgroundOnly = groups.filter((group) => !group.tube);
-  const overgroundBoroughs = await fetchBoroughs(overgroundOnly.map((group) => group.position));
+  const notTube = groups.filter((group) => !group.tube);
+  const notTubeBoroughs = await fetchBoroughs(notTube.map((group) => group.position));
+  const tramStops = groups.filter((group) => group.stops.some((stop) => stop.lines.has("tram"))).length;
+  const tramShare = round((2 * TRAM_JOURNEYS) / tramStops, 2);
 
   const idByNaptan = new Map<string, string>();
   const unmatched: string[] = [];
@@ -334,20 +352,20 @@ async function main() {
         continue;
       }
       wikipediaByKey.delete(key);
-      // A few interchanges have their Overground station counted separately.
-      const extra = overgroundUsage.get(key) ?? 0;
+      // Some interchanges have their other stations counted separately.
+      const extra = railUsage.get(key) ?? 0;
       info = { boroughs: row.boroughs, opened: row.opened, usage: round(row.usage + extra, 2) };
     } else {
-      const usage = overgroundUsage.get(key);
+      const usage = railUsage.get(key) ?? (stops.some((stop) => stop.lines.has("tram")) ? tramShare : undefined);
       if (usage === undefined) throw new Error(`No usage figure for ${name}`);
-      info = { boroughs: [overgroundBoroughs[overgroundOnly.findIndex((group) => group.key === key)]!], opened: null, usage };
+      info = { boroughs: [notTubeBoroughs[notTube.findIndex((group) => group.key === key)]!], opened: null, usage };
     }
     for (const stop of stops) idByNaptan.set(stop.id, id);
     stations.push({
       id,
       name,
       lines: LINES.map((line) => line.id).filter((line) => stops.some((stop) => stop.lines.has(line))),
-      zones: [...new Set(stops.flatMap((stop) => parseZones(name, stop.zone)))].sort((a, b) => a - b),
+      zones: [...new Set(stops.flatMap((stop) => parseZones(stop, name)))].sort((a, b) => a - b),
       ...position,
       ...info,
       naptanIds: stops.map((stop) => stop.id).sort(),
@@ -369,7 +387,8 @@ async function main() {
   // Each route appears once per direction; keep one of each pair.
   const routes = new Map<string, Route>();
   for (const route of tfl.routes) {
-    const ids = route.naptanIds.map((naptanId) => idByNaptan.get(naptanId)!);
+    // Paddington and Liverpool Street have two Elizabeth line stops each, one after the other.
+    const ids = route.naptanIds.map((naptanId) => idByNaptan.get(naptanId)!).filter((id, i, all) => id !== all[i - 1]);
     const forward = `${route.line}:${ids.join()}`;
     const backward = `${route.line}:${[...ids].reverse().join()}`;
     if (!routes.has(forward) && !routes.has(backward)) routes.set(forward, { line: route.line, stations: ids });
@@ -384,9 +403,9 @@ async function main() {
     otherStations: await fetchOtherStations(stations),
   };
   await Bun.write(OUTPUT, `${JSON.stringify(network, null, 1)}\n`);
-  const overground = network.stations.filter((station) => !station.lines.some(isTubeLine)).length;
+  const notOnTube = network.stations.filter((station) => !station.lines.some(isTubeLine)).length;
   console.log(
-    `Wrote ${network.stations.length} stations (${overground} only on the Overground), ${network.edges.length} edges and ${network.routes.length} routes to data/network.json`,
+    `Wrote ${network.stations.length} stations (${notOnTube} not on the Tube), ${network.edges.length} edges and ${network.routes.length} routes to data/network.json`,
   );
 }
 

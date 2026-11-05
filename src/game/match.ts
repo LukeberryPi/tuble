@@ -26,6 +26,7 @@ export const ALIASES: Record<string, string[]> = {
   "tottenham-court-road": ["tcr"],
   "totteridge-and-whetstone": ["whetstone"],
   "shepherds-bush-market": ["shepherds bush hammersmith and city"],
+  "london-city-airport": ["city airport"],
 };
 
 /** Words people shorten, so "Baker St" and "Saint John's Wood" match. "and" is dropped, so "&" can be skipped. */
