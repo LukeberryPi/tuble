@@ -1,4 +1,4 @@
-import type { TierId } from "../src/game/score.ts";
+import { TIERS, type TierId } from "../src/game/score.ts";
 
 /** What the score image shows. Points only, never stations, so it can't spoil the day for anyone. */
 export type ScoreCard = {
@@ -31,6 +31,7 @@ const SIGN = '"Hammersmith One", "Helvetica Neue", Arial, sans-serif';
 /** Hammersmith One's 1 looks like a capital I, so digits come from Lato Bold, as on the site. */
 const DIGITS = `"tuble digits", ${SIGN}`;
 const BOARD = '"Doto", ui-monospace, monospace';
+const EMOJI = '"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif';
 
 /** The pigeon from the social card, drawn 40 by 32. */
 const PIGEON = `<svg xmlns="http://www.w3.org/2000/svg" width="40" height="32" viewBox="0 0 40 32"><path d="M8 22 Q4 18 2 22 L0 25 Q6 25 10 24 Z" fill="#5b6470"/><ellipse cx="18" cy="20" rx="11" ry="7.5" fill="#8d97a3"/><path d="M11 17 Q18 12 26 18 Q20 22 11 17 Z" fill="#6f7a87"/><path d="M12 21 H22 M12 23.4 H20" stroke="#4d5560" stroke-width="1.2"/><path d="M24 15 Q25 9 30 9 Q34 9 34.5 13 Q34 17 28 19 Z" fill="#7d8894"/><path d="M25 16 Q28 13 31 15 Q29 19 25 18 Z" fill="#5fa58b" opacity="0.9"/><circle cx="31" cy="11.6" r="1.3" fill="#f2a33a"/><circle cx="31.2" cy="11.6" r="0.6" fill="#111"/><path d="M34.3 12.2 L38 13.4 L34.2 14.2 Z" fill="#3f454c"/><path d="M17 27 V31 M15 31 H19 M22 27 V31 M20 31 H24" stroke="#d27a63" stroke-width="1.2" stroke-linecap="round"/></svg>`;
@@ -129,7 +130,7 @@ function roundel(ctx: CanvasRenderingContext2D, cx: number, cy: number, r: numbe
 /** The dot-matrix board, as on the site. */
 function board(ctx: CanvasRenderingContext2D, card: ScoreCard) {
   const x = 170;
-  const y = 482;
+  const y = 466;
   const width = SIZE - x * 2;
   const height = 76;
   shadow(ctx, () => {
@@ -165,7 +166,7 @@ function board(ctx: CanvasRenderingContext2D, card: ScoreCard) {
 function scoreSign(ctx: CanvasRenderingContext2D, text: string) {
   ctx.font = `120px ${DIGITS}`;
   const width = ctx.measureText(text).width + 120;
-  const y = 602;
+  const y = 574;
   const height = 150;
   shadow(ctx, () => {
     ctx.beginPath();
@@ -174,17 +175,23 @@ function scoreSign(ctx: CanvasRenderingContext2D, text: string) {
     ctx.fill();
   });
   ctx.fillStyle = "#fff";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillText(text, 540, y + height / 2 + 4);
+  centredText(ctx, text, 540, y + height / 2);
 }
 
-/** The results train from the site, with each carriage showing its question's points. Returns the middle of each roof. */
+/** Centres the drawn glyphs on (x, y), not the font's em box, which sits higher than the digits. */
+function centredText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth?: number) {
+  ctx.textAlign = "center";
+  ctx.textBaseline = "alphabetic";
+  const { actualBoundingBoxAscent: ascent, actualBoundingBoxDescent: descent } = ctx.measureText(text);
+  ctx.fillText(text, x, y + (ascent - descent) / 2, maxWidth);
+}
+
+/** The results train from the site, with each carriage showing its question's emoji and points. Returns the middle of each roof. */
 function train(ctx: CanvasRenderingContext2D, rounds: ScoreCard["rounds"], bottom: number): { x: number; y: number }[] {
   const gap = 8;
   const cab = 56;
   const car = 114;
-  const height = 118;
+  const height = 146;
   const top = bottom - height;
   const left = (SIZE - (cab + rounds.length * (car + gap))) / 2;
   ctx.lineWidth = 4;
@@ -216,17 +223,17 @@ function train(ctx: CanvasRenderingContext2D, rounds: ScoreCard["rounds"], botto
     ctx.stroke();
 
     const windowWidth = car * 0.8;
-    const windowHeight = height * 0.54;
-    const windowTop = top + height * 0.1;
+    const windowHeight = height * 0.62;
+    const windowTop = top + height * 0.07;
     ctx.beginPath();
     ctx.roundRect(x + (car - windowWidth) / 2, windowTop, windowWidth, windowHeight, 8);
     ctx.fillStyle = "#dfe7ec";
     ctx.fill();
+    ctx.font = `38px ${EMOJI}`;
+    centredText(ctx, TIERS[round.tier].emoji, x + car / 2, windowTop + windowHeight * 0.31);
     ctx.fillStyle = INK;
-    ctx.font = `46px ${DIGITS}`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText(String(round.points), x + car / 2, windowTop + windowHeight / 2 + 2, windowWidth - 10);
+    ctx.font = `40px ${DIGITS}`;
+    centredText(ctx, String(round.points), x + car / 2, windowTop + windowHeight * 0.75, windowWidth - 10);
 
     // The Interchange round gets an interchange circle on its roof, as on the site.
     if (round.interchange) {
