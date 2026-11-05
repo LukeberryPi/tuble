@@ -560,17 +560,30 @@ function Summary(props: { today: TodayResponse; results: AnswerResult[]; replay:
     }
   };
 
+  const image = () =>
+    scoreImage({
+      number: today.number,
+      date: formatDate(today.date),
+      replay,
+      score,
+      best,
+      rounds: results.map((result, i) => ({ points: result.points, tier: result.tier, interchange: today.prompts[i]?.interchange ?? false })),
+      host: location.host,
+    });
+
+  const copyImage = async () => {
+    try {
+      // Safari only allows the write if it starts during the click, so it gets the image as a promise.
+      await navigator.clipboard.write([new ClipboardItem({ "image/png": image() })]);
+      setShared("Image copied");
+    } catch {
+      setShared("Couldn't copy the image. Try saving it instead.");
+    }
+  };
+
   const exportImage = async () => {
     try {
-      const blob = await scoreImage({
-        number: today.number,
-        date: formatDate(today.date),
-        replay,
-        score,
-        best,
-        rounds: results.map((result, i) => ({ points: result.points, tier: result.tier, interchange: today.prompts[i]?.interchange ?? false })),
-        host: location.host,
-      });
+      const blob = await image();
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
@@ -594,13 +607,22 @@ function Summary(props: { today: TodayResponse; results: AnswerResult[]; replay:
         <span className="score-best"> / {best}</span>
       </p>
       <button className="primary" onClick={share}>
+        <Icon name="share" />
         Share your score
       </button>
-      <button className="secondary" onClick={exportImage}>Save score image</button>
+      <div className="image-actions">
+        {canCopyImage && (
+          <button className="secondary" onClick={copyImage}>
+            <Icon name="copy" />
+            Copy score image
+          </button>
+        )}
+        <button className="secondary" onClick={exportImage}>
+          <Icon name="download" />
+          Save score image
+        </button>
+      </div>
       {shared && <p className="shared" role="status">{shared}</p>}
-      <button className="secondary" onClick={onPlayAgain}>
-        Play again
-      </button>
 
       <ol className="recap">
         {results.map((result, i) => {
@@ -625,7 +647,52 @@ function Summary(props: { today: TodayResponse; results: AnswerResult[]; replay:
         })}
       </ol>
       <Countdown />
+      <button className="secondary" onClick={onPlayAgain}>
+        <Icon name="replay" />
+        Play again
+      </button>
     </section>
+  );
+}
+
+/** Copying images needs ClipboardItem, which older browsers lack. */
+const canCopyImage = typeof ClipboardItem !== "undefined" && typeof navigator.clipboard?.write === "function";
+
+/** Line icons drawn after Lucide's (ISC licence), so the app needs no icon package. */
+const ICONS = {
+  share: (
+    <>
+      <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+      <path d="M16 6l-4-4-4 4" />
+      <path d="M12 2v13" />
+    </>
+  ),
+  copy: (
+    <>
+      <rect width="14" height="14" x="8" y="8" rx="2" />
+      <path d="M4 16a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2" />
+    </>
+  ),
+  download: (
+    <>
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      <path d="M7 10l5 5 5-5" />
+      <path d="M12 15V3" />
+    </>
+  ),
+  replay: (
+    <>
+      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+      <path d="M3 3v5h5" />
+    </>
+  ),
+};
+
+function Icon({ name }: { name: keyof typeof ICONS }) {
+  return (
+    <svg className="button-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      {ICONS[name]}
+    </svg>
   );
 }
 
