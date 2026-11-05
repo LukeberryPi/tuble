@@ -7,6 +7,7 @@ import { LINES, lineLabel, type Mode } from "../src/lines.ts";
 import { pickFacts } from "./facts.ts";
 import { Platform, type TrainState } from "./Platform.tsx";
 import { Roundel } from "./Roundel.tsx";
+import { scoreImage } from "./scoreImage.ts";
 import { fetchToday, loadProgress, saveProgress, sendAnswer, type Progress } from "./session.ts";
 
 const SECONDS_PER_PROMPT = 30;
@@ -561,31 +562,15 @@ function Summary(props: { today: TodayResponse; results: AnswerResult[]; replay:
 
   const exportImage = async () => {
     try {
-      const canvas = document.createElement("canvas");
-      canvas.width = canvas.height = 1080;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) throw new Error("Canvas unavailable");
-      ctx.fillStyle = "#f6f1e7";
-      ctx.fillRect(0, 0, 1080, 1080);
-      ctx.textAlign = "center";
-      ctx.fillStyle = "#dc241f";
-      ctx.fillRect(100, 260, 880, 18);
-      ctx.fillRect(100, 802, 880, 18);
-      ctx.fillStyle = "#172b50";
-      ctx.font = "bold 110px sans-serif";
-      ctx.fillText("tuble", 540, 200);
-      ctx.font = "36px sans-serif";
-      ctx.fillText(`No. ${today.number}${replay ? " · replay" : ""} · ${formatDate(today.date)}`, 540, 350);
-      ctx.font = "bold 140px sans-serif";
-      ctx.fillText(`${score}/${best}`, 540, 530);
-      ctx.font = "64px sans-serif";
-      ctx.fillText(emojis.slice(0, -1).join(" "), 540, 660, 940);
-      ctx.fillText(`⇄ ${emojis.at(-1)}`, 540, 755);
-      ctx.font = "40px sans-serif";
-      ctx.fillText(location.host, 540, 930);
-      const blob = await new Promise<Blob>((resolve, reject) => canvas.toBlob(
-        (value) => value ? resolve(value) : reject(new Error("Image export failed")), "image/png",
-      ));
+      const blob = await scoreImage({
+        number: today.number,
+        date: formatDate(today.date),
+        replay,
+        score,
+        best,
+        rounds: results.map((result, i) => ({ points: result.points, tier: result.tier, interchange: today.prompts[i]?.interchange ?? false })),
+        host: location.host,
+      });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
