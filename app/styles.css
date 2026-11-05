@@ -469,6 +469,25 @@ button {
   transition: transform 160ms var(--ease-out);
 }
 
+.button-icon {
+  width: 1.1em;
+  height: 1.1em;
+  margin-right: 0.45em;
+  vertical-align: -0.16em;
+}
+
+/* Copy and save share a row, and stack on phones too narrow for both labels. Save fills the row when the browser can't copy images. */
+.image-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.image-actions .secondary {
+  margin-top: 0;
+}
+
 .primary:active,
 .secondary:active {
   transform: scale(0.97);
