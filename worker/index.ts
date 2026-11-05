@@ -1,19 +1,15 @@
 import networkJson from "../data/network.json";
 import scheduleJson from "../data/schedule.json";
 import type { AnswerRequest, TodayResponse } from "../src/game/api.ts";
-import { OVERGROUND_FROM, addDays, londonDate, puzzleNumber } from "../src/game/day.ts";
+import { addDays, londonDate, modesOn, puzzleNumber, stationsOn } from "../src/game/day.ts";
 import { resultFor } from "../src/game/result.ts";
 import { scheduleFor, type DayPrompt, type ScheduleDay } from "../src/game/schedule.ts";
 import { likelihoodFor } from "../src/game/score.ts";
-import { isTubeLine } from "../src/lines.ts";
 import type { Network } from "../src/network.ts";
 
 const network = networkJson as Network;
 const schedule = scheduleJson as ScheduleDay[];
-const stations = network.stations.map(({ id, name, lines }) => ({ id, name, lines }));
-const tubeStations = stations.filter((station) => station.lines.some(isTubeLine));
-const overgroundOnly = stations.filter((station) => !station.lines.some(isTubeLine)).map((station) => station.name);
-const stationIds = new Set(stations.map((station) => station.id));
+const stationIds = new Set(network.stations.map((station) => station.id));
 const usage = new Map(network.stations.map((station) => [station.id, station.usage]));
 
 function today(now: Date): Response {
@@ -26,14 +22,16 @@ function today(now: Date): Response {
     interchange,
     answerCount: answers.length,
   });
-  const overground = date >= OVERGROUND_FROM;
+  const modes = modesOn(date);
+  const { stations, elsewhere } = stationsOn(date, network.stations);
   const body: TodayResponse = {
     date,
     number: puzzleNumber(date),
     prompts: [...day.prompts.map((p) => prompt(p, false)), prompt(day.interchange, true)],
-    overground,
-    stations: overground ? stations : tubeStations,
-    otherStations: overground ? network.otherStations : [...network.otherStations, ...overgroundOnly],
+    modes,
+    overground: modes.includes("overground"),
+    stations,
+    otherStations: [...network.otherStations, ...elsewhere],
   };
   return Response.json(body, { headers: { "cache-control": "public, max-age=60" } });
 }

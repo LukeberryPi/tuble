@@ -1,8 +1,42 @@
+import { modeOf, type Mode } from "../lines.ts";
+
 /** The date of tuble #1. */
 export const LAUNCH_DATE = "2026-10-31";
 
-/** Puzzles before this date were Tube only, and their answers are frozen that way. */
-export const OVERGROUND_FROM = "2026-11-03";
+/**
+ * When each kind of railway joined the game. Earlier puzzles are frozen without it: the first
+ * three days were Tube only, and the Elizabeth line, DLR and trams came three days after the Overground.
+ */
+export const MODES_FROM: Record<Mode, string> = {
+  tube: LAUNCH_DATE,
+  overground: "2026-11-03",
+  elizabeth: "2026-11-06",
+  dlr: "2026-11-06",
+  tram: "2026-11-06",
+};
+
+/** The kinds of railway whose stations count on this day. */
+export function modesOn(date: string): Mode[] {
+  return (Object.keys(MODES_FROM) as Mode[]).filter((mode) => date >= MODES_FROM[mode]);
+}
+
+type DayStation = { id: string; name: string; lines: string[] };
+
+/**
+ * Splits stations into those that count on this day, with only that day's lines, and the names
+ * of the rest: "Manor Park isn't on the Tube or the Overground" before the Elizabeth line joined.
+ */
+export function stationsOn(date: string, all: DayStation[]): { stations: DayStation[]; elsewhere: string[] } {
+  const modes = modesOn(date);
+  const stations: DayStation[] = [];
+  const elsewhere: string[] = [];
+  for (const { id, name, lines } of all) {
+    const todays = lines.filter((line) => modes.includes(modeOf(line)!));
+    if (todays.length > 0) stations.push({ id, name, lines: todays });
+    else elsewhere.push(name);
+  }
+  return { stations, elsewhere };
+}
 
 /** A new puzzle starts at midnight in London. */
 const TIME_ZONE = "Europe/London";

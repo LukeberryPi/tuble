@@ -65,6 +65,7 @@ describe("prompt answers", () => {
   test("finds every animal hiding in a station name, and nothing else", () => {
     expect(answers("lexicon:animal")).toEqual([
       "Battersea Power Station", // bat
+      "Blackhorse Lane", // horse
       "Blackhorse Road", // horse
       "Buckhurst Hill", // buck
       "Canary Wharf", // canary
@@ -76,16 +77,21 @@ describe("prompt answers", () => {
       "Finchley Central", // finch
       "Finchley Road", // finch
       "Finchley Road & Frognal", // finch, frog
+      "Gallions Reach", // lion
       "Gants Hill", // ant
       "Goldhawk Road", // hawk
       "Hendon Central", // hen
       "Hoxton", // ox
+      "King Henry's Drive", // hen
       "Lambeth North", // lamb
       "Oxford Circus", // ox
       "Ravenscourt Park", // raven
+      "Shenfield", // hen
       "Snaresbrook", // rook
       "Stamford Brook", // rook
       "Stratford", // rat
+      "Stratford High Street", // rat
+      "Stratford International", // rat
       "Turkey Street", // turkey
       "Turnpike Lane", // pike
       "West Finchley", // finch
@@ -94,27 +100,47 @@ describe("prompt answers", () => {
     ]);
   });
 
-  test("counts Tube lines for hubs and 'no other Tube line', ignoring the Overground", () => {
+  test("counts Tube lines for hubs and 'no other Tube line', ignoring the other railways", () => {
     expect(answers("hub:3")).not.toContain("Highbury & Islington");
+    expect(answers("hub:3")).not.toContain("Canary Wharf");
     expect(answers("line-only:victoria")).toEqual(expect.arrayContaining(["Blackhorse Road", "Pimlico"]));
     expect(answers("hub:tube-overground")).toEqual(expect.arrayContaining(["Highbury & Islington", "Shepherd's Bush", "Euston"]));
+    expect(answers("hub:tube-dlr")).toEqual(["Bank", "Canary Wharf", "Canning Town", "Stratford", "West Ham"]);
+  });
+
+  test("names the new lines the way people say them", () => {
+    const text = (promptId: string) => bank.prompts.find((p) => p.id === promptId)!.text;
+    expect(text("line:elizabeth")).toBe("Name a station on the Elizabeth line");
+    expect(text("line:dlr")).toBe("Name a station on the DLR");
+    expect(text("line:tram")).toBe("Name a station on the trams");
+    expect(text("line-pair:central+elizabeth")).toBe("Name a station where you can change between the Central and Elizabeth lines");
   });
 
   test("measures 'further south' from the landmark", () => {
-    // Forest Hill is the Horniman Museum's own station, a little to the south; Balham is 300 m north.
-    expect(answers("compass:south:horniman-museum")).toEqual(expect.arrayContaining(["Forest Hill", "Morden"]));
-    expect(answers("compass:south:horniman-museum")).not.toContain("Balham");
+    // Morden is 130 m south of Hampton Court Palace and Birkbeck is level with it; Avenue Road is 390 m north.
+    expect(answers("compass:south:hampton-court-palace")).toEqual(expect.arrayContaining(["Morden", "Birkbeck"]));
+    expect(answers("compass:south:hampton-court-palace")).not.toContain("Avenue Road");
   });
 
   test("knows which stations are outside the M25", () => {
     expect(answers("outside-london:m25")).toEqual([
       "Amersham",
+      "Brentwood",
+      "Burnham",
       "Chalfont & Latimer",
       "Chesham",
       "Cheshunt",
       "Chorleywood",
       "Epping",
+      "Iver",
+      "Langley",
+      "Maidenhead",
+      "Reading",
+      "Shenfield",
+      "Slough",
+      "Taplow",
       "Theobalds Grove",
+      "Twyford",
     ]);
   });
 

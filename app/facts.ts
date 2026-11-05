@@ -9,7 +9,7 @@ export const STATION_FACTS: Record<string, string> = {
   amersham: "Amersham is the highest station on the Tube, 147 metres above sea level.",
   hampstead: "Hampstead is the deepest station on the Tube. Its platforms are 58.5 metres below ground.",
   "baker-street": "Baker Street has ten platforms, more than any other Tube station. Some of them date from 1863.",
-  "canary-wharf": "Canary Wharf is the busiest Tube station with only one line, the Jubilee.",
+  "canary-wharf": "Canary Wharf is the busiest Tube station with only one Tube line, the Jubilee.",
   "roding-valley": "Roding Valley is the quietest station on the Tube, with about 170,000 journeys a year.",
   highgate: "Jerry Springer was born in Highgate station in 1944, while it was being used as an air-raid shelter.",
   "liverpool-street": "Liverpool Street stands on the first site of Bethlem Royal Hospital, better known as Bedlam.",
@@ -19,7 +19,7 @@ export const STATION_FACTS: Record<string, string> = {
   pimlico: "Pimlico is the only Victoria line station where you can't change to another line.",
   "battersea-power-station": "Battersea Power Station is the only Tube station with “station” in its name.",
   "mornington-crescent": "Mornington Crescent is also a game on Radio 4's I'm Sorry I Haven't a Clue. Nobody has ever explained the rules.",
-  balham: "Balham is the only station that shares no letters with the word “underground”.",
+  balham: "Balham is the only Tube station that shares no letters with the word “underground”.",
   "st-johns-wood": "St John's Wood is the only Tube station that shares no letters with the word “mackerel”.",
   hoxton: "Hoxton shares no letters with the word “mackerel”. On the Tube, only St John's Wood can say the same.",
   "mansion-house": "Mansion House and South Ealing are the only Tube stations with all five vowels in their names.",
@@ -38,10 +38,19 @@ export const STATION_FACTS: Record<string, string> = {
   "kings-cross-st-pancras": "King's Cross St. Pancras has six Tube lines, more than any other station.",
   "watford-junction": "Watford Junction is outside London's fare zones altogether.",
   "west-croydon": "West Croydon is the southernmost station on the Overground.",
+  mitcham: "Mitcham shares no letters with the word “underground”. On the Tube, only Balham can say the same.",
+  reading: "Reading is as far west as the Elizabeth line goes, and it's outside London's fare zones.",
+  shenfield: "Shenfield, in Essex, is as far east as the Elizabeth line goes.",
+  "new-addington": "New Addington is the southernmost stop on the trams.",
+  "london-city-airport": "The DLR reached London City Airport in 2005.",
+  "woolwich-arsenal": "The DLR reached Woolwich Arsenal in 2009, through new tunnels under the Thames.",
 };
 
 /** Facts about the lines, for stations without one of their own. */
 export const LINE_FACTS: Record<string, string> = {
+  elizabeth: "The Elizabeth line is named after Queen Elizabeth II. Its tunnels under central London opened in May 2022, her Platinum Jubilee year.",
+  dlr: "DLR trains have no driver. A member of staff rides along to check tickets and work the doors.",
+  tram: "Trams came back to London in 2000, in Croydon. The last of the old London trams had run in 1952.",
   liberty: "The Liberty line is named after the Royal Liberty of Havering, which ran its own affairs for centuries.",
   lioness: "The Lioness line is named after England's women's football team, and it runs to Wembley.",
   mildmay: "The Mildmay line is named after the Mildmay Mission Hospital, which cared for people with HIV when few others would.",

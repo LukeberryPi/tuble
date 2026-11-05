@@ -1,7 +1,48 @@
 {
- "builtAt": "2026-11-02",
+ "builtAt": "2026-11-05",
  "usageYear": 2024,
  "stations": [
+  {
+   "id": "abbey-road",
+   "name": "Abbey Road",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2,
+    3
+   ],
+   "lat": 51.531926,
+   "lon": 0.003737,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 1.24,
+   "naptanIds": [
+    "940GZZDLABR"
+   ]
+  },
+  {
+   "id": "abbey-wood",
+   "name": "Abbey Wood",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [
+    4
+   ],
+   "lat": 51.491284,
+   "lon": 0.121087,
+   "boroughs": [
+    "Greenwich"
+   ],
+   "opened": null,
+   "usage": 16.16,
+   "naptanIds": [
+    "910GABWDXR"
+   ]
+  },
   {
    "id": "acton-central",
    "name": "Acton Central",
@@ -23,6 +64,26 @@
    ]
   },
   {
+   "id": "acton-main-line",
+   "name": "Acton Main Line",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [
+    3
+   ],
+   "lat": 51.51718,
+   "lon": -0.266756,
+   "boroughs": [
+    "Ealing"
+   ],
+   "opened": null,
+   "usage": 3.2,
+   "naptanIds": [
+    "910GACTONML"
+   ]
+  },
+  {
    "id": "acton-town",
    "name": "Acton Town",
    "lines": [
@@ -41,6 +102,42 @@
    "usage": 5.06,
    "naptanIds": [
     "940GZZLUACT"
+   ]
+  },
+  {
+   "id": "addington-village",
+   "name": "Addington Village",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.356241,
+   "lon": -0.032694,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRADV"
+   ]
+  },
+  {
+   "id": "addiscombe",
+   "name": "Addiscombe",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.37981,
+   "lon": -0.073242,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRADD"
    ]
   },
   {
@@ -86,6 +183,26 @@
    ]
   },
   {
+   "id": "all-saints",
+   "name": "All Saints",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2
+   ],
+   "lat": 51.511,
+   "lon": -0.013135,
+   "boroughs": [
+    "Tower Hamlets"
+   ],
+   "opened": null,
+   "usage": 1.69,
+   "naptanIds": [
+    "940GZZDLALL"
+   ]
+  },
+  {
    "id": "alperton",
    "name": "Alperton",
    "lines": [
@@ -123,6 +240,24 @@
    "usage": 1.9,
    "naptanIds": [
     "940GZZLUAMS"
+   ]
+  },
+  {
+   "id": "ampere-way",
+   "name": "Ampere Way",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.382238,
+   "lon": -0.123654,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRAMP"
    ]
   },
   {
@@ -187,6 +322,24 @@
    ]
   },
   {
+   "id": "arena",
+   "name": "Arena",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.391525,
+   "lon": -0.058347,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRARA"
+   ]
+  },
+  {
    "id": "arnos-grove",
    "name": "Arnos Grove",
    "lines": [
@@ -224,6 +377,24 @@
    "usage": 2.27,
    "naptanIds": [
     "940GZZLUASL"
+   ]
+  },
+  {
+   "id": "avenue-road",
+   "name": "Avenue Road",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.4068,
+   "lon": -0.049476,
+   "boroughs": [
+    "Bromley"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRAVE"
    ]
   },
   {
@@ -276,7 +447,8 @@
    "lines": [
     "central",
     "northern",
-    "waterloo-city"
+    "waterloo-city",
+    "dlr"
    ],
    "zones": [
     1
@@ -289,6 +461,7 @@
    "opened": 1898,
    "usage": 40.07,
    "naptanIds": [
+    "940GZZDLBNK",
     "940GZZLUBNK"
    ]
   },
@@ -440,6 +613,82 @@
    ]
   },
   {
+   "id": "beckenham-junction",
+   "name": "Beckenham Junction",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.41073,
+   "lon": -0.026401,
+   "boroughs": [
+    "Bromley"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRBEK"
+   ]
+  },
+  {
+   "id": "beckenham-road",
+   "name": "Beckenham Road",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.409532,
+   "lon": -0.043421,
+   "boroughs": [
+    "Bromley"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRBRD"
+   ]
+  },
+  {
+   "id": "beckton",
+   "name": "Beckton",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    3
+   ],
+   "lat": 51.514362,
+   "lon": 0.061453,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 1.97,
+   "naptanIds": [
+    "940GZZDLBEC"
+   ]
+  },
+  {
+   "id": "beckton-park",
+   "name": "Beckton Park",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    3
+   ],
+   "lat": 51.508793,
+   "lon": 0.054932,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 0.49,
+   "naptanIds": [
+    "940GZZDLBPK"
+   ]
+  },
+  {
    "id": "becontree",
    "name": "Becontree",
    "lines": [
@@ -457,6 +706,42 @@
    "usage": 2.96,
    "naptanIds": [
     "940GZZLUBEC"
+   ]
+  },
+  {
+   "id": "beddington-lane",
+   "name": "Beddington Lane",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.389242,
+   "lon": -0.142167,
+   "boroughs": [
+    "Sutton"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRBED"
+   ]
+  },
+  {
+   "id": "belgrave-walk",
+   "name": "Belgrave Walk",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.4011,
+   "lon": -0.17774,
+   "boroughs": [
+    "Merton"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRBGV"
    ]
   },
   {
@@ -522,6 +807,24 @@
    ]
   },
   {
+   "id": "birkbeck",
+   "name": "Birkbeck",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.403767,
+   "lon": -0.055787,
+   "boroughs": [
+    "Bromley"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRBIR"
+   ]
+  },
+  {
    "id": "blackfriars",
    "name": "Blackfriars",
    "lines": [
@@ -540,6 +843,24 @@
    "usage": 11.14,
    "naptanIds": [
     "940GZZLUBKF"
+   ]
+  },
+  {
+   "id": "blackhorse-lane",
+   "name": "Blackhorse Lane",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.384757,
+   "lon": -0.070562,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRBLA"
    ]
   },
   {
@@ -565,11 +886,32 @@
    ]
   },
   {
+   "id": "blackwall",
+   "name": "Blackwall",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2
+   ],
+   "lat": 51.507991,
+   "lon": -0.006969,
+   "boroughs": [
+    "Tower Hamlets"
+   ],
+   "opened": null,
+   "usage": 1.39,
+   "naptanIds": [
+    "940GZZDLBLA"
+   ]
+  },
+  {
    "id": "bond-street",
    "name": "Bond Street",
    "lines": [
     "central",
-    "jubilee"
+    "jubilee",
+    "elizabeth"
    ],
    "zones": [
     1
@@ -582,6 +924,7 @@
    "opened": 1900,
    "usage": 41.11,
    "naptanIds": [
+    "910GBONDST",
     "940GZZLUBND"
    ]
   },
@@ -647,6 +990,26 @@
    ]
   },
   {
+   "id": "bow-church",
+   "name": "Bow Church",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2
+   ],
+   "lat": 51.527858,
+   "lon": -0.020936,
+   "boroughs": [
+    "Tower Hamlets"
+   ],
+   "opened": null,
+   "usage": 3.05,
+   "naptanIds": [
+    "940GZZDLBOW"
+   ]
+  },
+  {
    "id": "bow-road",
    "name": "Bow Road",
    "lines": [
@@ -685,6 +1048,26 @@
    "usage": 1.82,
    "naptanIds": [
     "940GZZLUBTX"
+   ]
+  },
+  {
+   "id": "brentwood",
+   "name": "Brentwood",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [
+    9
+   ],
+   "lat": 51.613605,
+   "lon": 0.299586,
+   "boroughs": [
+    "Brentwood"
+   ],
+   "opened": null,
+   "usage": 3.28,
+   "naptanIds": [
+    "910GBRTWOOD"
    ]
   },
   {
@@ -827,6 +1210,24 @@
    "usage": 2.24,
    "naptanIds": [
     "940GZZLUBKH"
+   ]
+  },
+  {
+   "id": "burnham",
+   "name": "Burnham",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [],
+   "lat": 51.523506,
+   "lon": -0.646374,
+   "boroughs": [
+    "Slough"
+   ],
+   "opened": null,
+   "usage": 2.33,
+   "naptanIds": [
+    "910GBNHAM"
    ]
   },
   {
@@ -1015,7 +1416,9 @@
    "id": "canary-wharf",
    "name": "Canary Wharf",
    "lines": [
-    "jubilee"
+    "jubilee",
+    "elizabeth",
+    "dlr"
    ],
    "zones": [
     2
@@ -1026,8 +1429,10 @@
     "Tower Hamlets"
    ],
    "opened": 1999,
-   "usage": 33.18,
+   "usage": 61.73,
    "naptanIds": [
+    "910GCANWHRF",
+    "940GZZDLCAN",
     "940GZZLUCYF"
    ]
   },
@@ -1035,7 +1440,8 @@
    "id": "canning-town",
    "name": "Canning Town",
    "lines": [
-    "jubilee"
+    "jubilee",
+    "dlr"
    ],
    "zones": [
     2,
@@ -1049,6 +1455,7 @@
    "opened": 1999,
    "usage": 12.62,
    "naptanIds": [
+    "940GZZDLCGT",
     "940GZZLUCGT"
    ]
   },
@@ -1132,6 +1539,44 @@
    "usage": 1.32,
    "naptanIds": [
     "910GCRPNDPK"
+   ]
+  },
+  {
+   "id": "centrale",
+   "name": "Centrale",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.375769,
+   "lon": -0.103917,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRCTR"
+   ]
+  },
+  {
+   "id": "chadwell-heath",
+   "name": "Chadwell Heath",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [
+    5
+   ],
+   "lat": 51.568039,
+   "lon": 0.128958,
+   "boroughs": [
+    "Redbridge"
+   ],
+   "opened": null,
+   "usage": 4.48,
+   "naptanIds": [
+    "910GCHDWLHT"
    ]
   },
   {
@@ -1337,6 +1782,24 @@
    ]
   },
   {
+   "id": "church-street",
+   "name": "Church Street",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.373708,
+   "lon": -0.104361,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRCHR"
+   ]
+  },
+  {
    "id": "clapham-common",
    "name": "Clapham Common",
    "lines": [
@@ -1521,6 +1984,24 @@
    ]
   },
   {
+   "id": "coombe-lane",
+   "name": "Coombe Lane",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.359791,
+   "lon": -0.05956,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRCOO"
+   ]
+  },
+  {
    "id": "covent-garden",
    "name": "Covent Garden",
    "lines": [
@@ -1538,6 +2019,26 @@
    "usage": 13.52,
    "naptanIds": [
     "940GZZLUCGN"
+   ]
+  },
+  {
+   "id": "crossharbour",
+   "name": "Crossharbour",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2
+   ],
+   "lat": 51.495728,
+   "lon": -0.014606,
+   "boroughs": [
+    "Tower Hamlets"
+   ],
+   "opened": null,
+   "usage": 3.07,
+   "naptanIds": [
+    "940GZZDLCLA"
    ]
   },
   {
@@ -1599,6 +2100,69 @@
    "usage": 2.02,
    "naptanIds": [
     "910GCRYSTLP"
+   ]
+  },
+  {
+   "id": "custom-house",
+   "name": "Custom House",
+   "lines": [
+    "elizabeth",
+    "dlr"
+   ],
+   "zones": [
+    3
+   ],
+   "lat": 51.509743,
+   "lon": 0.026715,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 13.09,
+   "naptanIds": [
+    "910GCUSTMHS",
+    "940GZZDLCUS"
+   ]
+  },
+  {
+   "id": "cutty-sark",
+   "name": "Cutty Sark",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2,
+    3
+   ],
+   "lat": 51.481671,
+   "lon": -0.01081,
+   "boroughs": [
+    "Greenwich"
+   ],
+   "opened": null,
+   "usage": 5.92,
+   "naptanIds": [
+    "940GZZDLCUT"
+   ]
+  },
+  {
+   "id": "cyprus",
+   "name": "Cyprus",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    3
+   ],
+   "lat": 51.508473,
+   "lon": 0.063925,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 2,
+   "naptanIds": [
+    "940GZZDLCYP"
    ]
   },
   {
@@ -1722,6 +2286,47 @@
    ]
   },
   {
+   "id": "deptford-bridge",
+   "name": "Deptford Bridge",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2,
+    3
+   ],
+   "lat": 51.474215,
+   "lon": -0.022438,
+   "boroughs": [
+    "Lewisham"
+   ],
+   "opened": null,
+   "usage": 2.77,
+   "naptanIds": [
+    "940GZZDLDEP"
+   ]
+  },
+  {
+   "id": "devons-road",
+   "name": "Devons Road",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2
+   ],
+   "lat": 51.522667,
+   "lon": -0.017615,
+   "boroughs": [
+    "Tower Hamlets"
+   ],
+   "opened": null,
+   "usage": 2.34,
+   "naptanIds": [
+    "940GZZDLDEV"
+   ]
+  },
+  {
    "id": "dollis-hill",
    "name": "Dollis Hill",
    "lines": [
@@ -1742,11 +2347,30 @@
    ]
   },
   {
+   "id": "dundonald-road",
+   "name": "Dundonald Road",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.417555,
+   "lon": -0.207679,
+   "boroughs": [
+    "Merton"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRDDR"
+   ]
+  },
+  {
    "id": "ealing-broadway",
    "name": "Ealing Broadway",
    "lines": [
     "central",
-    "district"
+    "district",
+    "elizabeth"
    ],
    "zones": [
     3
@@ -1759,6 +2383,7 @@
    "opened": 1879,
    "usage": 17.08,
    "naptanIds": [
+    "910GEALINGB",
     "940GZZLUEBY"
    ]
   },
@@ -1826,6 +2451,24 @@
    ]
   },
   {
+   "id": "east-croydon",
+   "name": "East Croydon",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.374863,
+   "lon": -0.092416,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRECR"
+   ]
+  },
+  {
    "id": "east-finchley",
    "name": "East Finchley",
    "lines": [
@@ -1865,6 +2508,27 @@
    "usage": 11.12,
    "naptanIds": [
     "940GZZLUEHM"
+   ]
+  },
+  {
+   "id": "east-india",
+   "name": "East India",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2,
+    3
+   ],
+   "lat": 51.509359,
+   "lon": -0.002326,
+   "boroughs": [
+    "Tower Hamlets"
+   ],
+   "opened": null,
+   "usage": 4.07,
+   "naptanIds": [
+    "940GZZDLEIN"
    ]
   },
   {
@@ -2013,6 +2677,45 @@
    "usage": 2.64,
    "naptanIds": [
     "940GZZLUEPK"
+   ]
+  },
+  {
+   "id": "elmers-end",
+   "name": "Elmers End",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.398474,
+   "lon": -0.049557,
+   "boroughs": [
+    "Bromley"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRELM"
+   ]
+  },
+  {
+   "id": "elverson-road",
+   "name": "Elverson Road",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2,
+    3
+   ],
+   "lat": 51.469074,
+   "lon": -0.016728,
+   "boroughs": [
+    "Greenwich"
+   ],
+   "opened": null,
+   "usage": 1.32,
+   "naptanIds": [
+    "940GZZDLELV"
    ]
   },
   {
@@ -2169,7 +2872,8 @@
    "lines": [
     "circle",
     "hammersmith-city",
-    "metropolitan"
+    "metropolitan",
+    "elizabeth"
    ],
    "zones": [
     1
@@ -2182,7 +2886,26 @@
    "opened": 1863,
    "usage": 41.26,
    "naptanIds": [
+    "910GFRNDXR",
     "940GZZLUFCN"
+   ]
+  },
+  {
+   "id": "fieldway",
+   "name": "Fieldway",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.351319,
+   "lon": -0.024532,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRFLD"
    ]
   },
   {
@@ -2268,6 +2991,26 @@
    ]
   },
   {
+   "id": "forest-gate",
+   "name": "Forest Gate",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [
+    3
+   ],
+   "lat": 51.549432,
+   "lon": 0.024353,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 5.63,
+   "naptanIds": [
+    "910GFRSTGT"
+   ]
+  },
+  {
    "id": "forest-hill",
    "name": "Forest Hill",
    "lines": [
@@ -2308,6 +3051,26 @@
    ]
   },
   {
+   "id": "gallions-reach",
+   "name": "Gallions Reach",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    3
+   ],
+   "lat": 51.508941,
+   "lon": 0.071555,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 1.9,
+   "naptanIds": [
+    "940GZZDLGAL"
+   ]
+  },
+  {
    "id": "gants-hill",
    "name": "Gants Hill",
    "lines": [
@@ -2325,6 +3088,44 @@
    "usage": 4.88,
    "naptanIds": [
     "940GZZLUGTH"
+   ]
+  },
+  {
+   "id": "george-street",
+   "name": "George Street",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.373977,
+   "lon": -0.098746,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRCEN"
+   ]
+  },
+  {
+   "id": "gidea-park",
+   "name": "Gidea Park",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [
+    6
+   ],
+   "lat": 51.581904,
+   "lon": 0.205964,
+   "boroughs": [
+    "Havering"
+   ],
+   "opened": null,
+   "usage": 2.86,
+   "naptanIds": [
+    "910GGIDEAPK"
    ]
   },
   {
@@ -2411,6 +3212,26 @@
    ]
   },
   {
+   "id": "goodmayes",
+   "name": "Goodmayes",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [
+    4
+   ],
+   "lat": 51.565579,
+   "lon": 0.110807,
+   "boroughs": [
+    "Redbridge"
+   ],
+   "opened": null,
+   "usage": 4.27,
+   "naptanIds": [
+    "910GGODMAYS"
+   ]
+  },
+  {
    "id": "gospel-oak",
    "name": "Gospel Oak",
    "lines": [
@@ -2449,6 +3270,24 @@
    "usage": 0.35,
    "naptanIds": [
     "940GZZLUGGH"
+   ]
+  },
+  {
+   "id": "gravel-hill",
+   "name": "Gravel Hill",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.354545,
+   "lon": -0.04315,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRGRA"
    ]
   },
   {
@@ -2513,6 +3352,27 @@
    "usage": 3.27,
    "naptanIds": [
     "940GZZLUGFD"
+   ]
+  },
+  {
+   "id": "greenwich",
+   "name": "Greenwich",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2,
+    3
+   ],
+   "lat": 51.478087,
+   "lon": -0.013673,
+   "boroughs": [
+    "Greenwich"
+   ],
+   "opened": null,
+   "usage": 7.12,
+   "naptanIds": [
+    "940GZZDLGRE"
    ]
   },
   {
@@ -2723,6 +3583,26 @@
    ]
   },
   {
+   "id": "hanwell",
+   "name": "Hanwell",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [
+    4
+   ],
+   "lat": 51.511835,
+   "lon": -0.338583,
+   "boroughs": [
+    "Ealing"
+   ],
+   "opened": null,
+   "usage": 2.36,
+   "naptanIds": [
+    "910GHANWELL"
+   ]
+  },
+  {
    "id": "harlesden",
    "name": "Harlesden",
    "lines": [
@@ -2745,6 +3625,26 @@
    ]
   },
   {
+   "id": "harold-wood",
+   "name": "Harold Wood",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [
+    6
+   ],
+   "lat": 51.592766,
+   "lon": 0.233129,
+   "boroughs": [
+    "Havering"
+   ],
+   "opened": null,
+   "usage": 3.29,
+   "naptanIds": [
+    "910GHRLDWOD"
+   ]
+  },
+  {
    "id": "harringay-green-lanes",
    "name": "Harringay Green Lanes",
    "lines": [
@@ -2762,6 +3662,24 @@
    "usage": 1.94,
    "naptanIds": [
     "910GHRGYGL"
+   ]
+  },
+  {
+   "id": "harrington-road",
+   "name": "Harrington Road",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.399793,
+   "lon": -0.060729,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRHAR"
    ]
   },
   {
@@ -2848,6 +3766,26 @@
    ]
   },
   {
+   "id": "hayes-and-harlington",
+   "name": "Hayes & Harlington",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [
+    5
+   ],
+   "lat": 51.503096,
+   "lon": -0.420683,
+   "boroughs": [
+    "Hillingdon"
+   ],
+   "opened": null,
+   "usage": 8.98,
+   "naptanIds": [
+    "910GHAYESAH"
+   ]
+  },
+  {
    "id": "headstone-lane",
    "name": "Headstone Lane",
    "lines": [
@@ -2871,7 +3809,8 @@
    "id": "heathrow-terminal-4",
    "name": "Heathrow Terminal 4",
    "lines": [
-    "piccadilly"
+    "piccadilly",
+    "elizabeth"
    ],
    "zones": [
     6
@@ -2882,8 +3821,9 @@
     "Hillingdon"
    ],
    "opened": 1986,
-   "usage": 1.72,
+   "usage": 5.27,
    "naptanIds": [
+    "910GHTRWTM4",
     "940GZZLUHR4"
    ]
   },
@@ -2891,7 +3831,8 @@
    "id": "heathrow-terminal-5",
    "name": "Heathrow Terminal 5",
    "lines": [
-    "piccadilly"
+    "piccadilly",
+    "elizabeth"
    ],
    "zones": [
     6
@@ -2902,8 +3843,9 @@
     "Hillingdon"
    ],
    "opened": 2008,
-   "usage": 4.1,
+   "usage": 12.02,
    "naptanIds": [
+    "910GHTRWTM5",
     "940GZZLUHR5"
    ]
   },
@@ -2911,7 +3853,8 @@
    "id": "heathrow-terminals-2-and-3",
    "name": "Heathrow Terminals 2 & 3",
    "lines": [
-    "piccadilly"
+    "piccadilly",
+    "elizabeth"
    ],
    "zones": [
     6
@@ -2922,8 +3865,9 @@
     "Hillingdon"
    ],
    "opened": 1977,
-   "usage": 6.04,
+   "usage": 17.01,
    "naptanIds": [
+    "910GHTRWAPT",
     "940GZZLUHRC"
    ]
   },
@@ -2946,6 +3890,26 @@
    "usage": 7.33,
    "naptanIds": [
     "940GZZLUHCL"
+   ]
+  },
+  {
+   "id": "heron-quays",
+   "name": "Heron Quays",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2
+   ],
+   "lat": 51.503379,
+   "lon": -0.021421,
+   "boroughs": [
+    "Tower Hamlets"
+   ],
+   "opened": null,
+   "usage": 5.19,
+   "naptanIds": [
+    "940GZZDLHEQ"
    ]
   },
   {
@@ -3317,6 +4281,26 @@
    ]
   },
   {
+   "id": "ilford",
+   "name": "Ilford",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [
+    4
+   ],
+   "lat": 51.559118,
+   "lon": 0.06968,
+   "boroughs": [
+    "Redbridge"
+   ],
+   "opened": null,
+   "usage": 10.65,
+   "naptanIds": [
+    "910GILFORD"
+   ]
+  },
+  {
    "id": "imperial-wharf",
    "name": "Imperial Wharf",
    "lines": [
@@ -3334,6 +4318,44 @@
    "usage": 2.84,
    "naptanIds": [
     "910GCSEAH"
+   ]
+  },
+  {
+   "id": "island-gardens",
+   "name": "Island Gardens",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2
+   ],
+   "lat": 51.487811,
+   "lon": -0.010139,
+   "boroughs": [
+    "Tower Hamlets"
+   ],
+   "opened": null,
+   "usage": 2.21,
+   "naptanIds": [
+    "940GZZDLISL"
+   ]
+  },
+  {
+   "id": "iver",
+   "name": "Iver",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [],
+   "lat": 51.508503,
+   "lon": -0.506726,
+   "boroughs": [
+    "Buckinghamshire"
+   ],
+   "opened": null,
+   "usage": 0.54,
+   "naptanIds": [
+    "910GIVER"
    ]
   },
   {
@@ -3567,6 +4589,44 @@
    ]
   },
   {
+   "id": "king-george-v",
+   "name": "King George V",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    3
+   ],
+   "lat": 51.502003,
+   "lon": 0.062624,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 1.46,
+   "naptanIds": [
+    "940GZZDLKGV"
+   ]
+  },
+  {
+   "id": "king-henrys-drive",
+   "name": "King Henry's Drive",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.34508,
+   "lon": -0.01998,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRKGH"
+   ]
+  },
+  {
    "id": "kings-cross-st-pancras",
    "name": "King's Cross St. Pancras",
    "lines": [
@@ -3693,6 +4753,44 @@
    ]
   },
   {
+   "id": "langdon-park",
+   "name": "Langdon Park",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2
+   ],
+   "lat": 51.515172,
+   "lon": -0.01415,
+   "boroughs": [
+    "Tower Hamlets"
+   ],
+   "opened": null,
+   "usage": 3.93,
+   "naptanIds": [
+    "940GZZDLLDP"
+   ]
+  },
+  {
+   "id": "langley",
+   "name": "Langley",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [],
+   "lat": 51.508062,
+   "lon": -0.541756,
+   "boroughs": [
+    "Slough"
+   ],
+   "opened": null,
+   "usage": 1.77,
+   "naptanIds": [
+    "910GLANGLEY"
+   ]
+  },
+  {
    "id": "latimer-road",
    "name": "Latimer Road",
    "lines": [
@@ -3714,6 +4812,24 @@
    ]
   },
   {
+   "id": "lebanon-road",
+   "name": "Lebanon Road",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.375201,
+   "lon": -0.085002,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRLEB"
+   ]
+  },
+  {
    "id": "leicester-square",
    "name": "Leicester Square",
    "lines": [
@@ -3732,6 +4848,27 @@
    "usage": 27.56,
    "naptanIds": [
     "940GZZLULSQ"
+   ]
+  },
+  {
+   "id": "lewisham",
+   "name": "Lewisham",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2,
+    3
+   ],
+   "lat": 51.464665,
+   "lon": -0.012874,
+   "boroughs": [
+    "Lewisham"
+   ],
+   "opened": null,
+   "usage": 7.2,
+   "naptanIds": [
+    "940GZZDLLEW"
    ]
   },
   {
@@ -3816,6 +4953,26 @@
    ]
   },
   {
+   "id": "limehouse",
+   "name": "Limehouse",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2
+   ],
+   "lat": 51.512393,
+   "lon": -0.039809,
+   "boroughs": [
+    "Tower Hamlets"
+   ],
+   "opened": null,
+   "usage": 5.84,
+   "naptanIds": [
+    "940GZZDLLIM"
+   ]
+  },
+  {
    "id": "liverpool-street",
    "name": "Liverpool Street",
    "lines": [
@@ -3823,7 +4980,8 @@
     "circle",
     "hammersmith-city",
     "metropolitan",
-    "weaver"
+    "weaver",
+    "elizabeth"
    ],
    "zones": [
     1
@@ -3834,10 +4992,29 @@
     "City of London"
    ],
    "opened": 1875,
-   "usage": 77.58,
+   "usage": 93.73,
    "naptanIds": [
     "910GLIVST",
+    "910GLIVSTLL",
     "940GZZLULVT"
+   ]
+  },
+  {
+   "id": "lloyd-park",
+   "name": "Lloyd Park",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.364278,
+   "lon": -0.080775,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRLOY"
    ]
   },
   {
@@ -3859,6 +5036,26 @@
    "usage": 57.89,
    "naptanIds": [
     "940GZZLULNB"
+   ]
+  },
+  {
+   "id": "london-city-airport",
+   "name": "London City Airport",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    3
+   ],
+   "lat": 51.503416,
+   "lon": 0.048739,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 3.45,
+   "naptanIds": [
+    "940GZZDLLCA"
    ]
   },
   {
@@ -3922,6 +5119,24 @@
    ]
   },
   {
+   "id": "maidenhead",
+   "name": "Maidenhead",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [],
+   "lat": 51.518669,
+   "lon": -0.72266,
+   "boroughs": [
+    "Windsor and Maidenhead"
+   ],
+   "opened": null,
+   "usage": 5.88,
+   "naptanIds": [
+    "910GMDNHEAD"
+   ]
+  },
+  {
    "id": "manor-house",
    "name": "Manor House",
    "lines": [
@@ -3941,6 +5156,27 @@
    "usage": 6,
    "naptanIds": [
     "940GZZLUMRH"
+   ]
+  },
+  {
+   "id": "manor-park",
+   "name": "Manor Park",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [
+    3,
+    4
+   ],
+   "lat": 51.552477,
+   "lon": 0.046342,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 3.94,
+   "naptanIds": [
+    "910GMANRPK"
    ]
   },
   {
@@ -3985,6 +5221,26 @@
    ]
   },
   {
+   "id": "maryland",
+   "name": "Maryland",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [
+    3
+   ],
+   "lat": 51.546081,
+   "lon": 0.005815,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 3.85,
+   "naptanIds": [
+    "910GMRYLAND"
+   ]
+  },
+  {
    "id": "marylebone",
    "name": "Marylebone",
    "lines": [
@@ -4002,6 +5258,24 @@
    "usage": 8.86,
    "naptanIds": [
     "940GZZLUMYB"
+   ]
+  },
+  {
+   "id": "merton-park",
+   "name": "Merton Park",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.413589,
+   "lon": -0.201219,
+   "boroughs": [
+    "Merton"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRMTP"
    ]
   },
   {
@@ -4044,6 +5318,42 @@
    "usage": 1.62,
    "naptanIds": [
     "940GZZLUMHL"
+   ]
+  },
+  {
+   "id": "mitcham",
+   "name": "Mitcham",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.39749,
+   "lon": -0.1709,
+   "boroughs": [
+    "Merton"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRMCH"
+   ]
+  },
+  {
+   "id": "mitcham-junction",
+   "name": "Mitcham Junction",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.392868,
+   "lon": -0.158263,
+   "boroughs": [
+    "Merton"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRMJT"
    ]
   },
   {
@@ -4132,6 +5442,24 @@
    ]
   },
   {
+   "id": "morden-road",
+   "name": "Morden Road",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.408874,
+   "lon": -0.192834,
+   "boroughs": [
+    "Merton"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRMDN"
+   ]
+  },
+  {
    "id": "mornington-crescent",
    "name": "Mornington Crescent",
    "lines": [
@@ -4152,6 +5480,26 @@
    ]
   },
   {
+   "id": "mudchute",
+   "name": "Mudchute",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2
+   ],
+   "lat": 51.490704,
+   "lon": -0.014738,
+   "boroughs": [
+    "Tower Hamlets"
+   ],
+   "opened": null,
+   "usage": 1.6,
+   "naptanIds": [
+    "940GZZDLMUD"
+   ]
+  },
+  {
    "id": "neasden",
    "name": "Neasden",
    "lines": [
@@ -4169,6 +5517,24 @@
    "usage": 2.64,
    "naptanIds": [
     "940GZZLUNDN"
+   ]
+  },
+  {
+   "id": "new-addington",
+   "name": "New Addington",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.342593,
+   "lon": -0.017412,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRNWA"
    ]
   },
   {
@@ -4608,7 +5974,8 @@
     "bakerloo",
     "circle",
     "district",
-    "hammersmith-city"
+    "hammersmith-city",
+    "elizabeth"
    ],
    "zones": [
     1
@@ -4621,6 +5988,8 @@
    "opened": 1863,
    "usage": 56.37,
    "naptanIds": [
+    "910GPADTLL",
+    "910GPADTON",
     "940GZZLUPAC",
     "940GZZLUPAH"
    ]
@@ -4726,6 +6095,24 @@
    ]
   },
   {
+   "id": "phipps-bridge",
+   "name": "Phipps Bridge",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.403979,
+   "lon": -0.18164,
+   "boroughs": [
+    "Merton"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRPHI"
+   ]
+  },
+  {
    "id": "piccadilly-circus",
    "name": "Piccadilly Circus",
    "lines": [
@@ -4808,6 +6195,46 @@
    ]
   },
   {
+   "id": "pontoon-dock",
+   "name": "Pontoon Dock",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    3
+   ],
+   "lat": 51.502212,
+   "lon": 0.032115,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 2.63,
+   "naptanIds": [
+    "940GZZDLPDK"
+   ]
+  },
+  {
+   "id": "poplar",
+   "name": "Poplar",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2
+   ],
+   "lat": 51.507744,
+   "lon": -0.017384,
+   "boroughs": [
+    "Tower Hamlets"
+   ],
+   "opened": null,
+   "usage": 1.77,
+   "naptanIds": [
+    "940GZZDLPOP"
+   ]
+  },
+  {
    "id": "preston-road",
    "name": "Preston Road",
    "lines": [
@@ -4825,6 +6252,47 @@
    "usage": 2.52,
    "naptanIds": [
     "940GZZLUPRD"
+   ]
+  },
+  {
+   "id": "prince-regent",
+   "name": "Prince Regent",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    3
+   ],
+   "lat": 51.509263,
+   "lon": 0.034158,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 1.55,
+   "naptanIds": [
+    "940GZZDLPRE"
+   ]
+  },
+  {
+   "id": "pudding-mill-lane",
+   "name": "Pudding Mill Lane",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2,
+    3
+   ],
+   "lat": 51.534302,
+   "lon": -0.012755,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 2.3,
+   "naptanIds": [
+    "940GZZDLPUD"
    ]
   },
   {
@@ -4971,6 +6439,24 @@
    ]
   },
   {
+   "id": "reading",
+   "name": "Reading",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [],
+   "lat": 51.458786,
+   "lon": -0.971863,
+   "boroughs": [
+    "Reading"
+   ],
+   "opened": null,
+   "usage": 3.57,
+   "naptanIds": [
+    "910GRDNGSTN"
+   ]
+  },
+  {
    "id": "rectory-road",
    "name": "Rectory Road",
    "lines": [
@@ -5008,6 +6494,24 @@
    "usage": 2.06,
    "naptanIds": [
     "940GZZLURBG"
+   ]
+  },
+  {
+   "id": "reeves-corner",
+   "name": "Reeves Corner",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.375279,
+   "lon": -0.106408,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRRVC"
    ]
   },
   {
@@ -5097,7 +6601,8 @@
    "id": "romford",
    "name": "Romford",
    "lines": [
-    "liberty"
+    "liberty",
+    "elizabeth"
    ],
    "zones": [
     6
@@ -5134,6 +6639,26 @@
    ]
   },
   {
+   "id": "royal-albert",
+   "name": "Royal Albert",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    3
+   ],
+   "lat": 51.508357,
+   "lon": 0.045935,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 1.42,
+   "naptanIds": [
+    "940GZZDLRAL"
+   ]
+  },
+  {
    "id": "royal-oak",
    "name": "Royal Oak",
    "lines": [
@@ -5152,6 +6677,26 @@
    "usage": 2.23,
    "naptanIds": [
     "940GZZLURYO"
+   ]
+  },
+  {
+   "id": "royal-victoria",
+   "name": "Royal Victoria",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    3
+   ],
+   "lat": 51.509336,
+   "lon": 0.018497,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 2.53,
+   "naptanIds": [
+    "940GZZDLRVC"
    ]
   },
   {
@@ -5237,6 +6782,44 @@
    ]
   },
   {
+   "id": "sandilands",
+   "name": "Sandilands",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.375024,
+   "lon": -0.078041,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRSAN"
+   ]
+  },
+  {
+   "id": "seven-kings",
+   "name": "Seven Kings",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [
+    4
+   ],
+   "lat": 51.564026,
+   "lon": 0.0971,
+   "boroughs": [
+    "Redbridge"
+   ],
+   "opened": null,
+   "usage": 3.83,
+   "naptanIds": [
+    "910GSVNKNGS"
+   ]
+  },
+  {
    "id": "seven-sisters",
    "name": "Seven Sisters",
    "lines": [
@@ -5262,7 +6845,8 @@
    "id": "shadwell",
    "name": "Shadwell",
    "lines": [
-    "windrush"
+    "windrush",
+    "dlr"
    ],
    "zones": [
     2
@@ -5273,9 +6857,28 @@
     "Tower Hamlets"
    ],
    "opened": null,
-   "usage": 3.68,
+   "usage": 9.44,
    "naptanIds": [
-    "910GSHADWEL"
+    "910GSHADWEL",
+    "940GZZDLSHA"
+   ]
+  },
+  {
+   "id": "shenfield",
+   "name": "Shenfield",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [],
+   "lat": 51.630877,
+   "lon": 0.329851,
+   "boroughs": [
+    "Brentwood"
+   ],
+   "opened": null,
+   "usage": 3.03,
+   "naptanIds": [
+    "910GSHENFLD"
    ]
   },
   {
@@ -5380,6 +6983,24 @@
    "usage": 14.24,
    "naptanIds": [
     "940GZZLUSSQ"
+   ]
+  },
+  {
+   "id": "slough",
+   "name": "Slough",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [],
+   "lat": 51.51188,
+   "lon": -0.59151,
+   "boroughs": [
+    "Slough"
+   ],
+   "opened": null,
+   "usage": 5.47,
+   "naptanIds": [
+    "910GSLOUGH"
    ]
   },
   {
@@ -5527,6 +7148,26 @@
    ]
   },
   {
+   "id": "south-quay",
+   "name": "South Quay",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2
+   ],
+   "lat": 51.50005,
+   "lon": -0.015975,
+   "boroughs": [
+    "Tower Hamlets"
+   ],
+   "opened": null,
+   "usage": 4.13,
+   "naptanIds": [
+    "940GZZDLSOQ"
+   ]
+  },
+  {
    "id": "south-ruislip",
    "name": "South Ruislip",
    "lines": [
@@ -5605,6 +7246,26 @@
    "usage": 4.15,
    "naptanIds": [
     "940GZZLUSWF"
+   ]
+  },
+  {
+   "id": "southall",
+   "name": "Southall",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [
+    4
+   ],
+   "lat": 51.505957,
+   "lon": -0.37861,
+   "boroughs": [
+    "Ealing"
+   ],
+   "opened": null,
+   "usage": 7.93,
+   "naptanIds": [
+    "910GSTHALL"
    ]
   },
   {
@@ -5829,6 +7490,27 @@
    ]
   },
   {
+   "id": "star-lane",
+   "name": "Star Lane",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2,
+    3
+   ],
+   "lat": 51.520786,
+   "lon": 0.004156,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 1.51,
+   "naptanIds": [
+    "940GZZDLSTL"
+   ]
+  },
+  {
    "id": "stepney-green",
    "name": "Stepney Green",
    "lines": [
@@ -5918,7 +7600,9 @@
    "lines": [
     "central",
     "jubilee",
-    "mildmay"
+    "mildmay",
+    "elizabeth",
+    "dlr"
    ],
    "zones": [
     2,
@@ -5933,7 +7617,50 @@
    "usage": 55.72,
    "naptanIds": [
     "910GSTFD",
+    "940GZZDLSTD",
     "940GZZLUSTD"
+   ]
+  },
+  {
+   "id": "stratford-high-street",
+   "name": "Stratford High Street",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2,
+    3
+   ],
+   "lat": 51.538196,
+   "lon": -0.001078,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 1.15,
+   "naptanIds": [
+    "940GZZDLSHS"
+   ]
+  },
+  {
+   "id": "stratford-international",
+   "name": "Stratford International",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2,
+    3
+   ],
+   "lat": 51.545265,
+   "lon": -0.009638,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 3.78,
+   "naptanIds": [
+    "940GZZDLSIT"
    ]
   },
   {
@@ -6038,6 +7765,24 @@
    ]
   },
   {
+   "id": "taplow",
+   "name": "Taplow",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [],
+   "lat": 51.523562,
+   "lon": -0.68137,
+   "boroughs": [
+    "Buckinghamshire"
+   ],
+   "opened": null,
+   "usage": 0.83,
+   "naptanIds": [
+    "910GTAPLOW"
+   ]
+  },
+  {
    "id": "temple",
    "name": "Temple",
    "lines": [
@@ -6076,6 +7821,24 @@
    "usage": 0.72,
    "naptanIds": [
     "910GTHBLDSG"
+   ]
+  },
+  {
+   "id": "therapia-lane",
+   "name": "Therapia Lane",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.385697,
+   "lon": -0.129045,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRTPA"
    ]
   },
   {
@@ -6143,7 +7906,8 @@
    "name": "Tottenham Court Road",
    "lines": [
     "central",
-    "northern"
+    "northern",
+    "elizabeth"
    ],
    "zones": [
     1
@@ -6156,6 +7920,7 @@
    "opened": 1900,
    "usage": 62.06,
    "naptanIds": [
+    "910GTOTCTRD",
     "940GZZLUTCR"
    ]
   },
@@ -6197,6 +7962,26 @@
    "usage": 2.04,
    "naptanIds": [
     "940GZZLUTAW"
+   ]
+  },
+  {
+   "id": "tower-gateway",
+   "name": "Tower Gateway",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    1
+   ],
+   "lat": 51.510617,
+   "lon": -0.074818,
+   "boroughs": [
+    "City of London"
+   ],
+   "opened": null,
+   "usage": 2.63,
+   "naptanIds": [
+    "940GZZDLTWG"
    ]
   },
   {
@@ -6300,6 +8085,24 @@
    "usage": 8.17,
    "naptanIds": [
     "940GZZLUTPN"
+   ]
+  },
+  {
+   "id": "twyford",
+   "name": "Twyford",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [],
+   "lat": 51.475534,
+   "lon": -0.863293,
+   "boroughs": [
+    "Wokingham"
+   ],
+   "opened": null,
+   "usage": 3.83,
+   "naptanIds": [
+    "910GTWYFORD"
    ]
   },
   {
@@ -6470,6 +8273,24 @@
    ]
   },
   {
+   "id": "waddon-marsh",
+   "name": "Waddon Marsh",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.377076,
+   "lon": -0.118016,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRWAD"
+   ]
+  },
+  {
    "id": "walthamstow-central",
    "name": "Walthamstow Central",
    "lines": [
@@ -6509,6 +8330,24 @@
    "usage": 1.44,
    "naptanIds": [
     "910GWLTHQRD"
+   ]
+  },
+  {
+   "id": "wandle-park",
+   "name": "Wandle Park",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.373403,
+   "lon": -0.113282,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRWAN"
    ]
   },
   {
@@ -6714,6 +8553,24 @@
    ]
   },
   {
+   "id": "wellesley-road",
+   "name": "Wellesley Road",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.37537,
+   "lon": -0.097554,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRWEL"
+   ]
+  },
+  {
    "id": "wembley-central",
    "name": "Wembley Central",
    "lines": [
@@ -6802,7 +8659,8 @@
    "id": "west-croydon",
    "name": "West Croydon",
    "lines": [
-    "windrush"
+    "windrush",
+    "tram"
    ],
    "zones": [
     5
@@ -6815,7 +8673,48 @@
    "opened": null,
    "usage": 3.87,
    "naptanIds": [
-    "910GWCROYDN"
+    "910GWCROYDN",
+    "940GZZCRWCR"
+   ]
+  },
+  {
+   "id": "west-drayton",
+   "name": "West Drayton",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [
+    6
+   ],
+   "lat": 51.510055,
+   "lon": -0.472234,
+   "boroughs": [
+    "Hillingdon"
+   ],
+   "opened": null,
+   "usage": 3.6,
+   "naptanIds": [
+    "910GWDRYTON"
+   ]
+  },
+  {
+   "id": "west-ealing",
+   "name": "West Ealing",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [
+    3
+   ],
+   "lat": 51.513506,
+   "lon": -0.320133,
+   "boroughs": [
+    "Ealing"
+   ],
+   "opened": null,
+   "usage": 2.94,
+   "naptanIds": [
+    "910GWEALING"
    ]
   },
   {
@@ -6844,7 +8743,8 @@
    "lines": [
     "district",
     "hammersmith-city",
-    "jubilee"
+    "jubilee",
+    "dlr"
    ],
    "zones": [
     2,
@@ -6858,6 +8758,7 @@
    "opened": 1902,
    "usage": 5.49,
    "naptanIds": [
+    "940GZZDLWHM",
     "940GZZLUWHM"
    ]
   },
@@ -6904,6 +8805,26 @@
    ]
   },
   {
+   "id": "west-india-quay",
+   "name": "West India Quay",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2
+   ],
+   "lat": 51.50703,
+   "lon": -0.020311,
+   "boroughs": [
+    "Tower Hamlets"
+   ],
+   "opened": null,
+   "usage": 2.6,
+   "naptanIds": [
+    "940GZZDLWIQ"
+   ]
+  },
+  {
    "id": "west-kensington",
    "name": "West Kensington",
    "lines": [
@@ -6944,6 +8865,26 @@
    ]
   },
   {
+   "id": "west-silvertown",
+   "name": "West Silvertown",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    3
+   ],
+   "lat": 51.502838,
+   "lon": 0.02246,
+   "boroughs": [
+    "Newham"
+   ],
+   "opened": null,
+   "usage": 2.22,
+   "naptanIds": [
+    "940GZZDLWSV"
+   ]
+  },
+  {
    "id": "westbourne-park",
    "name": "Westbourne Park",
    "lines": [
@@ -6962,6 +8903,26 @@
    "usage": 3.92,
    "naptanIds": [
     "940GZZLUWSP"
+   ]
+  },
+  {
+   "id": "westferry",
+   "name": "Westferry",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    2
+   ],
+   "lat": 51.509431,
+   "lon": -0.02675,
+   "boroughs": [
+    "Tower Hamlets"
+   ],
+   "opened": null,
+   "usage": 4.2,
+   "naptanIds": [
+    "940GZZDLWFE"
    ]
   },
   {
@@ -7032,7 +8993,8 @@
    "lines": [
     "district",
     "hammersmith-city",
-    "windrush"
+    "windrush",
+    "elizabeth"
    ],
    "zones": [
     2
@@ -7046,6 +9008,7 @@
    "usage": 18.28,
    "naptanIds": [
     "910GWCHAPEL",
+    "910GWCHAPXR",
     "940GZZLUWPL"
    ]
   },
@@ -7099,7 +9062,8 @@
    "id": "wimbledon",
    "name": "Wimbledon",
    "lines": [
-    "district"
+    "district",
+    "tram"
    ],
    "zones": [
     3
@@ -7112,6 +9076,7 @@
    "opened": 1889,
    "usage": 17.4,
    "naptanIds": [
+    "940GZZCRWMB",
     "940GZZLUWIM"
    ]
   },
@@ -7238,6 +9203,24 @@
    ]
   },
   {
+   "id": "woodside",
+   "name": "Woodside",
+   "lines": [
+    "tram"
+   ],
+   "zones": [],
+   "lat": 51.3871,
+   "lon": -0.065361,
+   "boroughs": [
+    "Croydon"
+   ],
+   "opened": null,
+   "usage": 0.88,
+   "naptanIds": [
+    "940GZZCRWOD"
+   ]
+  },
+  {
    "id": "woodside-park",
    "name": "Woodside Park",
    "lines": [
@@ -7255,6 +9238,46 @@
    "usage": 3.23,
    "naptanIds": [
     "940GZZLUWOP"
+   ]
+  },
+  {
+   "id": "woolwich",
+   "name": "Woolwich",
+   "lines": [
+    "elizabeth"
+   ],
+   "zones": [
+    4
+   ],
+   "lat": 51.492168,
+   "lon": 0.070593,
+   "boroughs": [
+    "Greenwich"
+   ],
+   "opened": null,
+   "usage": 13.55,
+   "naptanIds": [
+    "910GWOLWXR"
+   ]
+  },
+  {
+   "id": "woolwich-arsenal",
+   "name": "Woolwich Arsenal",
+   "lines": [
+    "dlr"
+   ],
+   "zones": [
+    4
+   ],
+   "lat": 51.490009,
+   "lon": 0.069127,
+   "boroughs": [
+    "Greenwich"
+   ],
+   "opened": null,
+   "usage": 6.46,
+   "naptanIds": [
+    "940GZZDLWLA"
    ]
   }
  ],
@@ -8093,6 +10116,446 @@
    "a": "wimbledon",
    "b": "wimbledon-park",
    "line": "district"
+  },
+  {
+   "a": "abbey-road",
+   "b": "stratford-high-street",
+   "line": "dlr"
+  },
+  {
+   "a": "abbey-road",
+   "b": "west-ham",
+   "line": "dlr"
+  },
+  {
+   "a": "all-saints",
+   "b": "langdon-park",
+   "line": "dlr"
+  },
+  {
+   "a": "all-saints",
+   "b": "poplar",
+   "line": "dlr"
+  },
+  {
+   "a": "bank",
+   "b": "shadwell",
+   "line": "dlr"
+  },
+  {
+   "a": "beckton-park",
+   "b": "cyprus",
+   "line": "dlr"
+  },
+  {
+   "a": "beckton-park",
+   "b": "royal-albert",
+   "line": "dlr"
+  },
+  {
+   "a": "beckton",
+   "b": "gallions-reach",
+   "line": "dlr"
+  },
+  {
+   "a": "blackwall",
+   "b": "east-india",
+   "line": "dlr"
+  },
+  {
+   "a": "blackwall",
+   "b": "poplar",
+   "line": "dlr"
+  },
+  {
+   "a": "bow-church",
+   "b": "devons-road",
+   "line": "dlr"
+  },
+  {
+   "a": "bow-church",
+   "b": "pudding-mill-lane",
+   "line": "dlr"
+  },
+  {
+   "a": "canary-wharf",
+   "b": "heron-quays",
+   "line": "dlr"
+  },
+  {
+   "a": "canary-wharf",
+   "b": "west-india-quay",
+   "line": "dlr"
+  },
+  {
+   "a": "canary-wharf",
+   "b": "westferry",
+   "line": "dlr"
+  },
+  {
+   "a": "canning-town",
+   "b": "east-india",
+   "line": "dlr"
+  },
+  {
+   "a": "canning-town",
+   "b": "royal-victoria",
+   "line": "dlr"
+  },
+  {
+   "a": "canning-town",
+   "b": "star-lane",
+   "line": "dlr"
+  },
+  {
+   "a": "canning-town",
+   "b": "west-silvertown",
+   "line": "dlr"
+  },
+  {
+   "a": "crossharbour",
+   "b": "mudchute",
+   "line": "dlr"
+  },
+  {
+   "a": "crossharbour",
+   "b": "south-quay",
+   "line": "dlr"
+  },
+  {
+   "a": "custom-house",
+   "b": "prince-regent",
+   "line": "dlr"
+  },
+  {
+   "a": "custom-house",
+   "b": "royal-victoria",
+   "line": "dlr"
+  },
+  {
+   "a": "cutty-sark",
+   "b": "greenwich",
+   "line": "dlr"
+  },
+  {
+   "a": "cutty-sark",
+   "b": "island-gardens",
+   "line": "dlr"
+  },
+  {
+   "a": "cyprus",
+   "b": "gallions-reach",
+   "line": "dlr"
+  },
+  {
+   "a": "deptford-bridge",
+   "b": "elverson-road",
+   "line": "dlr"
+  },
+  {
+   "a": "deptford-bridge",
+   "b": "greenwich",
+   "line": "dlr"
+  },
+  {
+   "a": "devons-road",
+   "b": "langdon-park",
+   "line": "dlr"
+  },
+  {
+   "a": "elverson-road",
+   "b": "lewisham",
+   "line": "dlr"
+  },
+  {
+   "a": "heron-quays",
+   "b": "south-quay",
+   "line": "dlr"
+  },
+  {
+   "a": "island-gardens",
+   "b": "mudchute",
+   "line": "dlr"
+  },
+  {
+   "a": "king-george-v",
+   "b": "london-city-airport",
+   "line": "dlr"
+  },
+  {
+   "a": "king-george-v",
+   "b": "woolwich-arsenal",
+   "line": "dlr"
+  },
+  {
+   "a": "limehouse",
+   "b": "shadwell",
+   "line": "dlr"
+  },
+  {
+   "a": "limehouse",
+   "b": "westferry",
+   "line": "dlr"
+  },
+  {
+   "a": "london-city-airport",
+   "b": "pontoon-dock",
+   "line": "dlr"
+  },
+  {
+   "a": "pontoon-dock",
+   "b": "west-silvertown",
+   "line": "dlr"
+  },
+  {
+   "a": "poplar",
+   "b": "west-india-quay",
+   "line": "dlr"
+  },
+  {
+   "a": "poplar",
+   "b": "westferry",
+   "line": "dlr"
+  },
+  {
+   "a": "prince-regent",
+   "b": "royal-albert",
+   "line": "dlr"
+  },
+  {
+   "a": "pudding-mill-lane",
+   "b": "stratford",
+   "line": "dlr"
+  },
+  {
+   "a": "shadwell",
+   "b": "tower-gateway",
+   "line": "dlr"
+  },
+  {
+   "a": "star-lane",
+   "b": "west-ham",
+   "line": "dlr"
+  },
+  {
+   "a": "stratford",
+   "b": "stratford-high-street",
+   "line": "dlr"
+  },
+  {
+   "a": "stratford",
+   "b": "stratford-international",
+   "line": "dlr"
+  },
+  {
+   "a": "west-india-quay",
+   "b": "westferry",
+   "line": "dlr"
+  },
+  {
+   "a": "abbey-wood",
+   "b": "woolwich",
+   "line": "elizabeth"
+  },
+  {
+   "a": "acton-main-line",
+   "b": "ealing-broadway",
+   "line": "elizabeth"
+  },
+  {
+   "a": "acton-main-line",
+   "b": "paddington",
+   "line": "elizabeth"
+  },
+  {
+   "a": "bond-street",
+   "b": "paddington",
+   "line": "elizabeth"
+  },
+  {
+   "a": "bond-street",
+   "b": "tottenham-court-road",
+   "line": "elizabeth"
+  },
+  {
+   "a": "brentwood",
+   "b": "harold-wood",
+   "line": "elizabeth"
+  },
+  {
+   "a": "brentwood",
+   "b": "shenfield",
+   "line": "elizabeth"
+  },
+  {
+   "a": "burnham",
+   "b": "slough",
+   "line": "elizabeth"
+  },
+  {
+   "a": "burnham",
+   "b": "taplow",
+   "line": "elizabeth"
+  },
+  {
+   "a": "canary-wharf",
+   "b": "custom-house",
+   "line": "elizabeth"
+  },
+  {
+   "a": "canary-wharf",
+   "b": "whitechapel",
+   "line": "elizabeth"
+  },
+  {
+   "a": "chadwell-heath",
+   "b": "goodmayes",
+   "line": "elizabeth"
+  },
+  {
+   "a": "chadwell-heath",
+   "b": "romford",
+   "line": "elizabeth"
+  },
+  {
+   "a": "custom-house",
+   "b": "woolwich",
+   "line": "elizabeth"
+  },
+  {
+   "a": "ealing-broadway",
+   "b": "west-ealing",
+   "line": "elizabeth"
+  },
+  {
+   "a": "farringdon",
+   "b": "liverpool-street",
+   "line": "elizabeth"
+  },
+  {
+   "a": "farringdon",
+   "b": "tottenham-court-road",
+   "line": "elizabeth"
+  },
+  {
+   "a": "forest-gate",
+   "b": "manor-park",
+   "line": "elizabeth"
+  },
+  {
+   "a": "forest-gate",
+   "b": "maryland",
+   "line": "elizabeth"
+  },
+  {
+   "a": "gidea-park",
+   "b": "harold-wood",
+   "line": "elizabeth"
+  },
+  {
+   "a": "gidea-park",
+   "b": "romford",
+   "line": "elizabeth"
+  },
+  {
+   "a": "goodmayes",
+   "b": "seven-kings",
+   "line": "elizabeth"
+  },
+  {
+   "a": "hanwell",
+   "b": "southall",
+   "line": "elizabeth"
+  },
+  {
+   "a": "hanwell",
+   "b": "west-ealing",
+   "line": "elizabeth"
+  },
+  {
+   "a": "hayes-and-harlington",
+   "b": "heathrow-terminals-2-and-3",
+   "line": "elizabeth"
+  },
+  {
+   "a": "hayes-and-harlington",
+   "b": "southall",
+   "line": "elizabeth"
+  },
+  {
+   "a": "hayes-and-harlington",
+   "b": "west-drayton",
+   "line": "elizabeth"
+  },
+  {
+   "a": "heathrow-terminal-4",
+   "b": "heathrow-terminals-2-and-3",
+   "line": "elizabeth"
+  },
+  {
+   "a": "heathrow-terminal-5",
+   "b": "heathrow-terminals-2-and-3",
+   "line": "elizabeth"
+  },
+  {
+   "a": "ilford",
+   "b": "manor-park",
+   "line": "elizabeth"
+  },
+  {
+   "a": "ilford",
+   "b": "seven-kings",
+   "line": "elizabeth"
+  },
+  {
+   "a": "iver",
+   "b": "langley",
+   "line": "elizabeth"
+  },
+  {
+   "a": "iver",
+   "b": "west-drayton",
+   "line": "elizabeth"
+  },
+  {
+   "a": "langley",
+   "b": "slough",
+   "line": "elizabeth"
+  },
+  {
+   "a": "liverpool-street",
+   "b": "stratford",
+   "line": "elizabeth"
+  },
+  {
+   "a": "liverpool-street",
+   "b": "whitechapel",
+   "line": "elizabeth"
+  },
+  {
+   "a": "maidenhead",
+   "b": "taplow",
+   "line": "elizabeth"
+  },
+  {
+   "a": "maidenhead",
+   "b": "twyford",
+   "line": "elizabeth"
+  },
+  {
+   "a": "maryland",
+   "b": "stratford",
+   "line": "elizabeth"
+  },
+  {
+   "a": "reading",
+   "b": "twyford",
+   "line": "elizabeth"
+  },
+  {
+   "a": "stratford",
+   "b": "whitechapel",
+   "line": "elizabeth"
   },
   {
    "a": "aldgate-east",
@@ -9363,6 +11826,206 @@
    "a": "wanstead-park",
    "b": "woodgrange-park",
    "line": "suffragette"
+  },
+  {
+   "a": "addington-village",
+   "b": "fieldway",
+   "line": "tram"
+  },
+  {
+   "a": "addington-village",
+   "b": "gravel-hill",
+   "line": "tram"
+  },
+  {
+   "a": "addiscombe",
+   "b": "blackhorse-lane",
+   "line": "tram"
+  },
+  {
+   "a": "addiscombe",
+   "b": "sandilands",
+   "line": "tram"
+  },
+  {
+   "a": "ampere-way",
+   "b": "therapia-lane",
+   "line": "tram"
+  },
+  {
+   "a": "ampere-way",
+   "b": "waddon-marsh",
+   "line": "tram"
+  },
+  {
+   "a": "arena",
+   "b": "elmers-end",
+   "line": "tram"
+  },
+  {
+   "a": "arena",
+   "b": "harrington-road",
+   "line": "tram"
+  },
+  {
+   "a": "arena",
+   "b": "woodside",
+   "line": "tram"
+  },
+  {
+   "a": "avenue-road",
+   "b": "beckenham-road",
+   "line": "tram"
+  },
+  {
+   "a": "avenue-road",
+   "b": "birkbeck",
+   "line": "tram"
+  },
+  {
+   "a": "beckenham-junction",
+   "b": "beckenham-road",
+   "line": "tram"
+  },
+  {
+   "a": "beddington-lane",
+   "b": "mitcham-junction",
+   "line": "tram"
+  },
+  {
+   "a": "beddington-lane",
+   "b": "therapia-lane",
+   "line": "tram"
+  },
+  {
+   "a": "belgrave-walk",
+   "b": "mitcham",
+   "line": "tram"
+  },
+  {
+   "a": "belgrave-walk",
+   "b": "phipps-bridge",
+   "line": "tram"
+  },
+  {
+   "a": "birkbeck",
+   "b": "harrington-road",
+   "line": "tram"
+  },
+  {
+   "a": "blackhorse-lane",
+   "b": "woodside",
+   "line": "tram"
+  },
+  {
+   "a": "centrale",
+   "b": "church-street",
+   "line": "tram"
+  },
+  {
+   "a": "centrale",
+   "b": "reeves-corner",
+   "line": "tram"
+  },
+  {
+   "a": "centrale",
+   "b": "west-croydon",
+   "line": "tram"
+  },
+  {
+   "a": "church-street",
+   "b": "george-street",
+   "line": "tram"
+  },
+  {
+   "a": "church-street",
+   "b": "wandle-park",
+   "line": "tram"
+  },
+  {
+   "a": "coombe-lane",
+   "b": "gravel-hill",
+   "line": "tram"
+  },
+  {
+   "a": "coombe-lane",
+   "b": "lloyd-park",
+   "line": "tram"
+  },
+  {
+   "a": "dundonald-road",
+   "b": "merton-park",
+   "line": "tram"
+  },
+  {
+   "a": "dundonald-road",
+   "b": "wimbledon",
+   "line": "tram"
+  },
+  {
+   "a": "east-croydon",
+   "b": "george-street",
+   "line": "tram"
+  },
+  {
+   "a": "east-croydon",
+   "b": "lebanon-road",
+   "line": "tram"
+  },
+  {
+   "a": "east-croydon",
+   "b": "wellesley-road",
+   "line": "tram"
+  },
+  {
+   "a": "fieldway",
+   "b": "king-henrys-drive",
+   "line": "tram"
+  },
+  {
+   "a": "king-henrys-drive",
+   "b": "new-addington",
+   "line": "tram"
+  },
+  {
+   "a": "lebanon-road",
+   "b": "sandilands",
+   "line": "tram"
+  },
+  {
+   "a": "lloyd-park",
+   "b": "sandilands",
+   "line": "tram"
+  },
+  {
+   "a": "merton-park",
+   "b": "morden-road",
+   "line": "tram"
+  },
+  {
+   "a": "mitcham",
+   "b": "mitcham-junction",
+   "line": "tram"
+  },
+  {
+   "a": "morden-road",
+   "b": "phipps-bridge",
+   "line": "tram"
+  },
+  {
+   "a": "reeves-corner",
+   "b": "wandle-park",
+   "line": "tram"
+  },
+  {
+   "a": "waddon-marsh",
+   "b": "wandle-park",
+   "line": "tram"
+  },
+  {
+   "a": "wellesley-road",
+   "b": "west-croydon",
+   "line": "tram"
   },
   {
    "a": "blackhorse-road",
@@ -11117,24 +13780,542 @@
     "norwood-junction",
     "west-croydon"
    ]
+  },
+  {
+   "line": "elizabeth",
+   "stations": [
+    "abbey-wood",
+    "woolwich",
+    "custom-house",
+    "canary-wharf",
+    "whitechapel",
+    "liverpool-street",
+    "farringdon",
+    "tottenham-court-road",
+    "bond-street",
+    "paddington",
+    "acton-main-line",
+    "ealing-broadway",
+    "west-ealing",
+    "hanwell",
+    "southall",
+    "hayes-and-harlington",
+    "heathrow-terminals-2-and-3",
+    "heathrow-terminal-4"
+   ]
+  },
+  {
+   "line": "elizabeth",
+   "stations": [
+    "abbey-wood",
+    "woolwich",
+    "custom-house",
+    "canary-wharf",
+    "whitechapel",
+    "liverpool-street",
+    "farringdon",
+    "tottenham-court-road",
+    "bond-street",
+    "paddington",
+    "acton-main-line",
+    "ealing-broadway",
+    "west-ealing",
+    "hanwell",
+    "southall",
+    "hayes-and-harlington",
+    "heathrow-terminals-2-and-3",
+    "heathrow-terminal-5"
+   ]
+  },
+  {
+   "line": "elizabeth",
+   "stations": [
+    "abbey-wood",
+    "woolwich",
+    "custom-house",
+    "canary-wharf",
+    "whitechapel",
+    "liverpool-street",
+    "farringdon",
+    "tottenham-court-road",
+    "bond-street",
+    "paddington",
+    "acton-main-line",
+    "ealing-broadway",
+    "west-ealing",
+    "hanwell",
+    "southall",
+    "hayes-and-harlington",
+    "west-drayton",
+    "iver",
+    "langley",
+    "slough",
+    "burnham",
+    "taplow",
+    "maidenhead",
+    "twyford",
+    "reading"
+   ]
+  },
+  {
+   "line": "elizabeth",
+   "stations": [
+    "heathrow-terminal-4",
+    "heathrow-terminals-2-and-3",
+    "hayes-and-harlington",
+    "southall",
+    "hanwell",
+    "west-ealing",
+    "ealing-broadway",
+    "acton-main-line",
+    "paddington"
+   ]
+  },
+  {
+   "line": "elizabeth",
+   "stations": [
+    "heathrow-terminal-4",
+    "heathrow-terminals-2-and-3",
+    "hayes-and-harlington",
+    "southall",
+    "hanwell",
+    "west-ealing",
+    "ealing-broadway",
+    "acton-main-line",
+    "paddington",
+    "bond-street",
+    "tottenham-court-road",
+    "farringdon",
+    "liverpool-street",
+    "whitechapel",
+    "stratford",
+    "maryland",
+    "forest-gate",
+    "manor-park",
+    "ilford",
+    "seven-kings",
+    "goodmayes",
+    "chadwell-heath",
+    "romford",
+    "gidea-park",
+    "harold-wood",
+    "brentwood",
+    "shenfield"
+   ]
+  },
+  {
+   "line": "elizabeth",
+   "stations": [
+    "heathrow-terminal-5",
+    "heathrow-terminals-2-and-3",
+    "hayes-and-harlington",
+    "southall",
+    "hanwell",
+    "west-ealing",
+    "ealing-broadway",
+    "acton-main-line",
+    "paddington"
+   ]
+  },
+  {
+   "line": "elizabeth",
+   "stations": [
+    "heathrow-terminal-5",
+    "heathrow-terminals-2-and-3",
+    "hayes-and-harlington",
+    "southall",
+    "hanwell",
+    "west-ealing",
+    "ealing-broadway",
+    "acton-main-line",
+    "paddington",
+    "bond-street",
+    "tottenham-court-road",
+    "farringdon",
+    "liverpool-street",
+    "whitechapel",
+    "stratford",
+    "maryland",
+    "forest-gate",
+    "manor-park",
+    "ilford",
+    "seven-kings",
+    "goodmayes",
+    "chadwell-heath",
+    "romford",
+    "gidea-park",
+    "harold-wood",
+    "brentwood",
+    "shenfield"
+   ]
+  },
+  {
+   "line": "elizabeth",
+   "stations": [
+    "liverpool-street",
+    "stratford",
+    "maryland",
+    "forest-gate",
+    "manor-park",
+    "ilford",
+    "seven-kings",
+    "goodmayes",
+    "chadwell-heath",
+    "romford",
+    "gidea-park",
+    "harold-wood",
+    "brentwood",
+    "shenfield"
+   ]
+  },
+  {
+   "line": "elizabeth",
+   "stations": [
+    "paddington",
+    "acton-main-line",
+    "ealing-broadway",
+    "west-ealing",
+    "hanwell",
+    "southall",
+    "hayes-and-harlington",
+    "west-drayton",
+    "iver",
+    "langley",
+    "slough",
+    "burnham",
+    "taplow",
+    "maidenhead",
+    "twyford",
+    "reading"
+   ]
+  },
+  {
+   "line": "elizabeth",
+   "stations": [
+    "paddington",
+    "bond-street",
+    "tottenham-court-road",
+    "farringdon",
+    "liverpool-street",
+    "whitechapel",
+    "stratford",
+    "maryland",
+    "forest-gate",
+    "manor-park",
+    "ilford",
+    "seven-kings",
+    "goodmayes",
+    "chadwell-heath",
+    "romford",
+    "gidea-park",
+    "harold-wood",
+    "brentwood",
+    "shenfield"
+   ]
+  },
+  {
+   "line": "dlr",
+   "stations": [
+    "bank",
+    "shadwell",
+    "limehouse",
+    "westferry",
+    "canary-wharf",
+    "heron-quays",
+    "south-quay",
+    "crossharbour",
+    "mudchute",
+    "island-gardens",
+    "cutty-sark",
+    "greenwich",
+    "deptford-bridge",
+    "elverson-road",
+    "lewisham"
+   ]
+  },
+  {
+   "line": "dlr",
+   "stations": [
+    "bank",
+    "shadwell",
+    "limehouse",
+    "westferry",
+    "poplar",
+    "blackwall",
+    "east-india",
+    "canning-town",
+    "west-silvertown",
+    "pontoon-dock",
+    "london-city-airport",
+    "king-george-v",
+    "woolwich-arsenal"
+   ]
+  },
+  {
+   "line": "dlr",
+   "stations": [
+    "beckton",
+    "gallions-reach",
+    "cyprus",
+    "beckton-park",
+    "royal-albert",
+    "prince-regent",
+    "custom-house",
+    "royal-victoria",
+    "canning-town",
+    "east-india",
+    "blackwall",
+    "poplar",
+    "westferry",
+    "limehouse",
+    "shadwell",
+    "tower-gateway"
+   ]
+  },
+  {
+   "line": "dlr",
+   "stations": [
+    "lewisham",
+    "elverson-road",
+    "deptford-bridge",
+    "greenwich",
+    "cutty-sark",
+    "island-gardens",
+    "mudchute",
+    "crossharbour",
+    "south-quay",
+    "heron-quays",
+    "canary-wharf",
+    "west-india-quay",
+    "poplar",
+    "all-saints",
+    "langdon-park",
+    "devons-road",
+    "bow-church",
+    "pudding-mill-lane",
+    "stratford"
+   ]
+  },
+  {
+   "line": "dlr",
+   "stations": [
+    "lewisham",
+    "elverson-road",
+    "deptford-bridge",
+    "greenwich",
+    "cutty-sark",
+    "island-gardens",
+    "mudchute",
+    "crossharbour",
+    "south-quay",
+    "heron-quays",
+    "canary-wharf",
+    "west-india-quay",
+    "westferry",
+    "limehouse",
+    "shadwell",
+    "bank"
+   ]
+  },
+  {
+   "line": "dlr",
+   "stations": [
+    "stratford",
+    "pudding-mill-lane",
+    "bow-church",
+    "devons-road",
+    "langdon-park",
+    "all-saints",
+    "poplar",
+    "west-india-quay",
+    "canary-wharf"
+   ]
+  },
+  {
+   "line": "dlr",
+   "stations": [
+    "stratford-international",
+    "stratford",
+    "stratford-high-street",
+    "abbey-road",
+    "west-ham",
+    "star-lane",
+    "canning-town",
+    "west-silvertown",
+    "pontoon-dock",
+    "london-city-airport",
+    "king-george-v",
+    "woolwich-arsenal"
+   ]
+  },
+  {
+   "line": "tram",
+   "stations": [
+    "beckenham-junction",
+    "beckenham-road",
+    "avenue-road",
+    "birkbeck",
+    "harrington-road",
+    "arena",
+    "woodside",
+    "blackhorse-lane",
+    "addiscombe",
+    "sandilands",
+    "lebanon-road",
+    "east-croydon",
+    "george-street",
+    "church-street",
+    "wandle-park",
+    "waddon-marsh",
+    "ampere-way",
+    "therapia-lane",
+    "beddington-lane",
+    "mitcham-junction",
+    "mitcham",
+    "belgrave-walk",
+    "phipps-bridge",
+    "morden-road",
+    "merton-park",
+    "dundonald-road",
+    "wimbledon"
+   ]
+  },
+  {
+   "line": "tram",
+   "stations": [
+    "church-street",
+    "centrale",
+    "west-croydon",
+    "wellesley-road",
+    "east-croydon",
+    "lebanon-road",
+    "sandilands",
+    "lloyd-park",
+    "coombe-lane",
+    "gravel-hill",
+    "addington-village",
+    "fieldway",
+    "king-henrys-drive",
+    "new-addington"
+   ]
+  },
+  {
+   "line": "tram",
+   "stations": [
+    "elmers-end",
+    "arena",
+    "woodside",
+    "blackhorse-lane",
+    "addiscombe",
+    "sandilands",
+    "lebanon-road",
+    "east-croydon",
+    "george-street",
+    "church-street",
+    "wandle-park",
+    "waddon-marsh",
+    "ampere-way",
+    "therapia-lane",
+    "beddington-lane",
+    "mitcham-junction",
+    "mitcham",
+    "belgrave-walk",
+    "phipps-bridge",
+    "morden-road",
+    "merton-park",
+    "dundonald-road",
+    "wimbledon"
+   ]
+  },
+  {
+   "line": "tram",
+   "stations": [
+    "new-addington",
+    "king-henrys-drive",
+    "fieldway",
+    "addington-village",
+    "gravel-hill",
+    "coombe-lane",
+    "lloyd-park",
+    "sandilands",
+    "lebanon-road",
+    "east-croydon",
+    "george-street",
+    "church-street"
+   ]
+  },
+  {
+   "line": "tram",
+   "stations": [
+    "wimbledon",
+    "dundonald-road",
+    "merton-park",
+    "morden-road",
+    "phipps-bridge",
+    "belgrave-walk",
+    "mitcham",
+    "mitcham-junction",
+    "beddington-lane",
+    "therapia-lane",
+    "ampere-way",
+    "waddon-marsh",
+    "wandle-park",
+    "reeves-corner",
+    "centrale",
+    "west-croydon",
+    "wellesley-road",
+    "east-croydon",
+    "lebanon-road",
+    "sandilands",
+    "addiscombe",
+    "blackhorse-lane",
+    "woodside",
+    "arena",
+    "elmers-end"
+   ]
+  },
+  {
+   "line": "tram",
+   "stations": [
+    "wimbledon",
+    "dundonald-road",
+    "merton-park",
+    "morden-road",
+    "phipps-bridge",
+    "belgrave-walk",
+    "mitcham",
+    "mitcham-junction",
+    "beddington-lane",
+    "therapia-lane",
+    "ampere-way",
+    "waddon-marsh",
+    "wandle-park",
+    "reeves-corner",
+    "centrale",
+    "west-croydon",
+    "wellesley-road",
+    "east-croydon",
+    "lebanon-road",
+    "sandilands",
+    "addiscombe",
+    "blackhorse-lane",
+    "woodside",
+    "arena",
+    "harrington-road",
+    "birkbeck",
+    "avenue-road",
+    "beckenham-road",
+    "beckenham-junction"
+   ]
   }
  ],
  "otherStations": [
-  "Abbey Road",
-  "Abbey Wood",
-  "Acton Main Line",
-  "Addington Village",
-  "Addiscombe",
   "Addlestone",
   "Albany Park",
   "Alexandra Palace",
-  "All Saints",
-  "Ampere Way",
   "Apsley",
-  "Arena",
   "Ashford",
   "Ashtead",
-  "Avenue Road",
   "Banstead",
   "Barnehurst",
   "Barnes",
@@ -11143,12 +14324,6 @@
   "Battersea Park",
   "Bayford",
   "Beckenham Hill",
-  "Beckenham Junction",
-  "Beckenham Road",
-  "Beckton",
-  "Beckton Park",
-  "Beddington Lane",
-  "Belgrave Walk",
   "Bellingham",
   "Belmont",
   "Belvedere",
@@ -11157,17 +14332,12 @@
   "Bexley",
   "Bexleyheath",
   "Bickley",
-  "Birkbeck",
   "Blackheath",
-  "Blackhorse Lane",
-  "Blackwall",
   "Bookham",
-  "Bow Church",
   "Bowes Park",
   "Box Hill & Westhumble",
   "Brent Cross West",
   "Brentford",
-  "Brentwood",
   "Bricket Wood",
   "Brimsdown",
   "Bromley North",
@@ -11181,8 +14351,6 @@
   "Caterham",
   "Catford",
   "Catford Bridge",
-  "Centrale",
-  "Chadwell Heath",
   "Chafford Hundred",
   "Charlton",
   "Cheam",
@@ -11192,53 +14360,38 @@
   "Chessington South",
   "Chipstead",
   "Chislehurst",
-  "Church Street",
-  "City Airport",
   "City Thameslink",
   "Claygate",
   "Clock House",
   "Cobham & Stoke d'Abernon",
-  "Coombe Lane",
   "Coulsdon South",
   "Coulsdon Town",
   "Crayford",
   "Crews Hill",
   "Cricklewood",
   "Crofton Park",
-  "Crossharbour",
   "Cuffley",
-  "Custom House",
-  "Cutty Sark",
-  "Cyprus",
   "Dagenham Dock",
   "Dartford",
   "Datchet",
   "Denham",
   "Denham Golf Club",
-  "Deptford",
-  "Deptford Bridge",
-  "Devons Road",
   "Dorking",
   "Dorking Deepdene",
   "Dorking West",
   "Drayton Green",
   "Drayton Park",
-  "Dundonald Road",
   "Dunton Green",
   "Earlsfield",
   "Earlswood",
-  "East Croydon",
   "East Dulwich",
-  "East India",
   "Ebbsfleet International",
   "Eden Park",
   "Effingham Junction",
   "Egham",
-  "Elmers End",
   "Elmstead Woods",
   "Elstree & Borehamwood",
   "Eltham",
-  "Elverson Road",
   "Enfield Chase",
   "Enfield Lock",
   "Epsom",
@@ -11253,40 +14406,26 @@
   "Farningham Road",
   "Feltham",
   "Fenchurch Street",
-  "Fieldway",
-  "Forest Gate",
   "Fulwell",
-  "Gallions Reach",
   "Garston",
-  "George Street",
   "Gerrards Cross",
-  "Gidea Park",
   "Gipsy Hill",
   "Godstone",
-  "Goodmayes",
   "Gordon Hill",
   "Grange Park",
-  "Gravel Hill",
   "Gravesend",
   "Grays",
   "Greenhithe for Bluewater",
-  "Greenwich",
   "Grove Park",
   "Hackbridge",
   "Hadley Wood",
   "Hampton",
   "Hampton Court",
   "Hampton Wick",
-  "Hanwell",
   "Harlow Town",
-  "Harold Wood",
-  "Harrington Road",
   "Hatfield",
   "Haydons Road",
-  "Hayes",
-  "Hayes & Harlington",
   "Herne Hill",
-  "Heron Quays",
   "Hersham",
   "Hertford East",
   "Hertford North",
@@ -11296,56 +14435,36 @@
   "Horsley",
   "How Wood",
   "Hurst Green",
-  "Ilford",
-  "Island Gardens",
   "Isleworth",
-  "Iver",
   "Kempton Park",
   "Kemsing",
   "Kenley",
   "Kent House",
   "Kew Bridge",
   "Kidbrooke",
-  "King George V",
-  "King Henry's Drive",
   "Kings Langley",
   "Kingston",
   "Kingswood",
   "Knockholt",
   "Ladywell",
-  "Langdon Park",
-  "Langley",
   "Lea Bridge",
   "Leatherhead",
-  "Lebanon Road",
   "Lee",
-  "Lewisham",
-  "Limehouse",
-  "Lloyd Park",
-  "London City Airport",
   "London Fenchurch Street",
   "London Waterloo East",
   "Longfield",
   "Loughborough Junction",
   "Lower Sydenham",
   "Malden Manor",
-  "Manor Park",
-  "Maryland",
   "Maze Hill",
   "Meridian Water",
   "Merstham",
-  "Merton Park",
   "Mill Hill Broadway",
-  "Mitcham",
   "Mitcham Eastfields",
-  "Mitcham Junction",
-  "Morden Road",
   "Morden South",
   "Mortlake",
   "Motspur Park",
   "Mottingham",
-  "Mudchute",
-  "New Addington",
   "New Barnet",
   "New Beckenham",
   "New Eltham",
@@ -11370,14 +14489,9 @@
   "Park Street",
   "Penge East",
   "Petts Wood",
-  "Phipps Bridge",
   "Plumstead",
   "Ponders End",
-  "Pontoon Dock",
-  "Poplar",
   "Potters Bar",
-  "Prince Regent",
-  "Pudding Mill Lane",
   "Purfleet",
   "Purley",
   "Purley Oaks",
@@ -11388,43 +14502,31 @@
   "Raynes Park",
   "Redhill",
   "Reedham",
-  "Reeves Corner",
   "Reigate",
   "Riddlesdown",
-  "Royal Albert",
-  "Royal Victoria",
   "Roydon",
   "Rye House",
   "Salfords",
   "Sanderstead",
-  "Sandilands",
   "Selhurst",
-  "Seven Kings",
   "Sevenoaks",
-  "Shenfield",
   "Shepperton",
   "Shoreham",
   "Shortlands",
   "Sidcup",
   "Slade Green",
-  "Slough",
   "South Bermondsey",
   "South Croydon",
   "South Greenford",
   "South Merton",
-  "South Quay",
-  "Southall",
   "St Albans Abbey",
   "St Albans City",
   "St Helier",
   "St Margarets",
   "St Mary Cray",
   "Staines",
-  "Star Lane",
   "Stone Crossing",
   "Stoneleigh",
-  "Stratford High Street",
-  "Stratford International",
   "Strawberry Hill",
   "Streatham",
   "Streatham Common",
@@ -11445,46 +14547,35 @@
   "Tattenham Corner",
   "Teddington",
   "Thames Ditton",
-  "Therapia Lane",
   "Thornton Heath",
   "Tilbury Town",
   "Tolworth",
-  "Tower Gateway",
   "Town Pier",
   "Tulse Hill",
   "Twickenham",
   "Upper Halliford",
   "Upper Warlingham",
   "Virginia Water",
-  "Waddon",
-  "Waddon Marsh",
   "Wallington",
   "Waltham Cross",
   "Walton-on-Thames",
-  "Wandle Park",
   "Wandsworth Common",
   "Wandsworth Town",
   "Ware",
   "Waterloo East",
   "Watford North",
   "Welham Green",
-  "Wellesley Road",
   "Welling",
   "Welwyn Garden City",
   "Wembley Stadium",
   "West Byfleet",
-  "West Drayton",
   "West Dulwich",
-  "West Ealing",
   "West Hampstead Thameslink",
   "West Horndon",
-  "West India Quay",
   "West Norwood",
-  "West Silvertown",
   "West Sutton",
   "West Wickham",
   "Westcombe Park",
-  "Westferry",
   "Weybridge",
   "Whitton",
   "Whyteleafe",
@@ -11495,8 +14586,6 @@
   "Windsor & Eton Riverside",
   "Woldingham",
   "Woodmansterne",
-  "Woolwich",
-  "Woolwich Arsenal",
   "Woolwich Dockyard",
   "Worcester Park",
   "Wraysbury"
