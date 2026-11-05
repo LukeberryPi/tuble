@@ -1,7 +1,7 @@
 import networkJson from "../data/network.json";
 import scheduleJson from "../data/schedule.json";
 import type { AnswerRequest, TodayResponse } from "../src/game/api.ts";
-import { addDays, londonDate, modesOn, puzzleNumber, stationsOn } from "../src/game/day.ts";
+import { addDays, londonDate, modesOn, puzzleNumber, stationsOn, usageOn } from "../src/game/day.ts";
 import { resultFor } from "../src/game/result.ts";
 import { scheduleFor, type DayPrompt, type ScheduleDay } from "../src/game/schedule.ts";
 import { likelihoodFor } from "../src/game/score.ts";
@@ -10,7 +10,6 @@ import type { Network } from "../src/network.ts";
 const network = networkJson as Network;
 const schedule = scheduleJson as ScheduleDay[];
 const stationIds = new Set(network.stations.map((station) => station.id));
-const usage = new Map(network.stations.map((station) => [station.id, station.usage]));
 
 function today(now: Date): Response {
   const date = londonDate(now);
@@ -100,7 +99,7 @@ async function answer(request: Request, env: Env, now: Date): Promise<Response> 
     interchange,
     stationId: body.replay ? stationId : firstAnswer,
     counts,
-    likelihood: likelihoodFor(body.promptId, usage),
+    likelihood: likelihoodFor(body.promptId, usageOn(body.date, network.stations)),
   });
   // Older pages only know a miss as a Signal Failure.
   if (body.legacy && !result.correct) return Response.json({ ...result, tier: "signal-failure" });

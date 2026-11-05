@@ -3,7 +3,7 @@ import { LINE_FACTS, STATION_FACTS, pickFacts } from "../app/facts.ts";
 import networkJson from "../data/network.json";
 import promptsJson from "../data/prompts.json";
 import scheduleJson from "../data/schedule.json";
-import { LAUNCH_DATE, addDays, londonDate, modesOn, msUntilNextPuzzle, puzzleNumber, stationsOn } from "../src/game/day.ts";
+import { LAUNCH_DATE, addDays, londonDate, modesOn, msUntilNextPuzzle, puzzleNumber, stationsOn, usageOn } from "../src/game/day.ts";
 import { createMatcher } from "../src/game/match.ts";
 import { resultFor } from "../src/game/result.ts";
 import { REGULAR_PROMPTS_PER_DAY, buildSchedule, scheduleFor, type ScheduleDay } from "../src/game/schedule.ts";
@@ -101,6 +101,21 @@ describe("days", () => {
     expect(before.elsewhere).toEqual(expect.arrayContaining(["Manor Park", "Mudchute", "East Croydon"]));
     expect(before.stations.find((s) => s.name === "Canary Wharf")!.lines).toEqual(["jubilee"]);
     expect(before.stations.find((s) => s.name === "Shadwell")!.lines).toEqual(["windrush"]);
+
+    // Played days score as they did before Canary Wharf's DLR and Elizabeth line counts were added.
+    const zone1 = schedule.find((day) => day.date === "2026-11-05")!.prompts.find((p) => p.id === "zone:1")!;
+    const score = (date: string) =>
+      resultFor({
+        promptId: zone1.id,
+        answers: zone1.answers,
+        interchange: false,
+        stationId: "covent-garden",
+        counts: {},
+        likelihood: likelihoodFor(zone1.id, usageOn(date, network.stations)),
+      }).tier;
+    expect(score("2026-11-05")).toBe("off-peak");
+    expect(usageOn("2026-11-05", network.stations).get("canary-wharf")).toBe(33.18);
+    expect(usageOn("2026-11-06", network.stations).get("canary-wharf")).toBe(61.73);
 
     const after = stationsOn("2026-11-06", network.stations);
     expect(after.elsewhere).toEqual([]);

@@ -38,6 +38,28 @@ export function stationsOn(date: string, all: DayStation[]): { stations: DayStat
   return { stations, elsewhere };
 }
 
+/**
+ * Passenger counts from before the Elizabeth line, DLR and trams joined, for stations whose new
+ * platforms TfL counts separately. Puzzles already played keep scoring with these.
+ */
+const USAGE_BEFORE: Record<string, number> = {
+  "canary-wharf": 33.18,
+  "heathrow-terminal-4": 1.72,
+  "heathrow-terminal-5": 4.1,
+  "heathrow-terminals-2-and-3": 6.04,
+  "liverpool-street": 77.58,
+  shadwell: 3.68,
+};
+
+/** Each counting station's passenger count, as that day's puzzle was scored. */
+export function usageOn(date: string, all: (DayStation & { usage: number })[]): Map<string, number> {
+  const counting = new Set(stationsOn(date, all).stations.map((station) => station.id));
+  const before = date < MODES_FROM.elizabeth;
+  return new Map(
+    all.filter((station) => counting.has(station.id)).map(({ id, usage }) => [id, before ? (USAGE_BEFORE[id] ?? usage) : usage]),
+  );
+}
+
 /** A new puzzle starts at midnight in London. */
 const TIME_ZONE = "Europe/London";
 
