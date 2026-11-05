@@ -3,10 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>tuble: name the station nobody else will</title>
+    <title>tuble – Daily London Tube Puzzle Game</title>
+    <link rel="canonical" href="https://tuble.win/" />
     <meta name="description" content="A daily London Tube game. Seven stops, thirty seconds each: name a Tube or Overground station that fits. The rarer your station, the more you score." />
     <meta name="theme-color" content="#121418" />
-    <meta property="og:title" content="tuble" />
+    <meta property="og:title" content="tuble – Daily London Tube Puzzle Game" />
     <meta property="og:description" content="Name the station nobody else will. A daily London Tube game." />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="tuble" />
@@ -15,6 +16,32 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="A Tube roundel that reads TUBLE, on a tiled platform wall." />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://tuble.win/#website",
+            "url": "https://tuble.win/",
+            "name": "tuble",
+            "alternateName": "tuble.win",
+            "inLanguage": "en-GB"
+          },
+          {
+            "@type": "VideoGame",
+            "name": "tuble",
+            "url": "https://tuble.win/",
+            "description": "A free daily London Tube puzzle. Name stations that fit the clues in thirty seconds. Rarer answers score more points.",
+            "genre": "Puzzle",
+            "gamePlatform": "Web browser",
+            "playMode": "SinglePlayer",
+            "isAccessibleForFree": true,
+            "inLanguage": "en-GB"
+          }
+        ]
+      }
+    </script>
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
@@ -25,6 +52,18 @@
   </head>
   <body>
     <div id="root"></div>
+    <section class="game-guide" aria-labelledby="about-tuble">
+      <h1 id="about-tuble">tuble: a daily London Tube puzzle</h1>
+      <p>Name the station nobody else will. tuble is a free London Underground quiz with seven stops and thirty seconds per stop. Find a station that fits each clue: the rarer your answer, the more you score.</p>
+      <h2>How to play tuble</h2>
+      <p>Read the clue, then type a matching station name before the timer runs out. Clues test your knowledge of London stations, from their lines and locations to the letters in their names. Wrong guesses let you keep trying while time remains.</p>
+      <p>The final stop is an Interchange: your station must fit two conditions at once, for double points. Share your score as emojis or save a square image without giving away your answers.</p>
+      <h2>A new Tube challenge every day</h2>
+      <p>Everyone gets the same daily puzzle. A new game arrives at midnight London time. You can replay after finishing, but only your first go counts towards other players' scores.</p>
+      <h2>Is tuble a station guessing game?</h2>
+      <p>There isn't one hidden station to find. You can name any station that fits the clue. Common answers earn fewer points, so knowing an overlooked stop can pay off.</p>
+      <p>Play in your browser on a phone, tablet or computer. No account or download needed.</p>
+    </section>
     <script type="module" src="/app/main.tsx"></script>
   </body>
 </html>
