@@ -54,6 +54,8 @@ export type AnswerResult = {
   top: AnswerShare[];
   /** Rare answers that would have been a Ghost Station or close to it. */
   deepCuts: AnswerShare[];
+  /** All valid answers, most common first. Absent from older saved games. */
+  answers?: (AnswerShare & { tier: TierId })[];
   answerCount: number;
   /** Players who have answered this prompt today, not counting this player. */
   players: number;

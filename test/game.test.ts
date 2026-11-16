@@ -182,6 +182,16 @@ describe("scoring", () => {
     expect(result.deepCuts).toHaveLength(3);
     expect(result.deepCuts.map((answer) => answer.id)).toContain(id("Roding Valley"));
   });
+
+  test("includes every valid answer with the same rarity used to score it", () => {
+    const result = score(id("Roding Valley"));
+    expect(result.answers).toHaveLength(central.answers.length);
+    expect(new Set(result.answers!.map((answer) => answer.id))).toEqual(new Set(central.answers));
+    expect(result.answers!.find((answer) => answer.id === result.stationId)).toEqual({ id: result.stationId!, share: result.share!, tier: result.tier });
+    expect(result.answers!.map((answer) => answer.share)).toEqual(result.answers!.map((answer) => answer.share).sort((a, b) => b - a));
+    for (const answer of result.answers!) expect(answer.tier).toBe(score(answer.id).tier);
+    expect(score(null).answers).toEqual(result.answers);
+  });
 });
 
 describe("did you know?", () => {

@@ -40,6 +40,7 @@ export function resultFor(input: ResultInput): AnswerResult {
     share: stationId !== null ? (shares.get(stationId) ?? null) : null,
     top,
     deepCuts,
+    answers: commonFirst.map((answer) => ({ ...answer, tier: tierFor(shares, answer.id) })),
     answerCount: answers.length,
     players: Object.values(counts).reduce((sum, count) => sum + count, 0),
   };
