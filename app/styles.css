@@ -1237,13 +1237,6 @@ button {
   font-size: 19px;
 }
 
-.recap-rarity {
-  display: block;
-  margin: 4px 0 0;
-  color: var(--muted);
-  font-size: 14px;
-}
-
 .recap-answers {
   grid-column: 2 / -1;
   min-width: 0;
@@ -1278,10 +1271,11 @@ button {
 }
 
 .recap-answer-rarity {
-  display: grid;
-  justify-items: end;
-  gap: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   flex-shrink: 0;
+  color: var(--blue);
   font-variant-numeric: tabular-nums;
 }
 
@@ -1298,19 +1292,6 @@ button {
   display: grid;
   justify-items: end;
   gap: 3px;
-}
-
-.recap-tier {
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: var(--tier);
-  color: #fff;
-  font-size: 13px;
-  white-space: nowrap;
-}
-
-.tier-lost-train > .recap-score .recap-tier {
-  color: var(--ink);
 }
 
 .recap-points {
