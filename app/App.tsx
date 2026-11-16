@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type FormEvent, type ReactNode } from "react";
-import type { AnswerResult, AnswerShare, TodayPrompt, TodayResponse } from "../src/game/api.ts";
+import type { AnswerResult, TodayPrompt, TodayResponse } from "../src/game/api.ts";
 import { msUntilNextPuzzle } from "../src/game/day.ts";
 import { createMatcher } from "../src/game/match.ts";
 import { pointsFor, TIERS, type TierId } from "../src/game/score.ts";
@@ -637,15 +637,11 @@ function Summary(props: { today: TodayResponse; results: AnswerResult[]; replay:
               <span className="recap-text">
                 <span className="recap-prompt">{prompt.conditions.join(", ")}</span>
                 <span className={`recap-answer${station && !result.correct ? " recap-wrong" : ""}`}>{station?.name ?? "Out of time"}</span>
-                {result.correct && result.share !== null && (
-                  <span className="recap-rarity">{percent(result.share)} of players{result.players < FEW_PLAYERS ? " (estimated)" : ""}</span>
-                )}
               </span>
               <span className="recap-score">
-                <span className="recap-tier">{tier.name}</span>
-                <span className="recap-points">+{result.points}</span>
+                <span className="recap-points" aria-label={`${tier.name}, ${result.points} points`}>+{result.points}</span>
               </span>
-              <RecapAnswers result={result} stations={stations} />
+              <RecapAnswers result={result} stations={stations} date={today.date} interchange={prompt.interchange} />
             </li>
           );
         })}
@@ -659,24 +655,39 @@ function Summary(props: { today: TodayResponse; results: AnswerResult[]; replay:
   );
 }
 
-function RecapAnswers({ result, stations }: { result: AnswerResult; stations: Map<string, Station> }) {
-  const answers: (AnswerShare & { tier?: TierId })[] = result.answers ?? [...new Map([...result.top, ...result.deepCuts].map((answer) => [answer.id, answer])).values()]
-    .sort((a, b) => b.share - a.share);
+function RecapAnswers({ result, stations, date, interchange }: { result: AnswerResult; stations: Map<string, Station>; date: string; interchange: boolean }) {
+  const [answers, setAnswers] = useState(result.answers);
+  const [loading, setLoading] = useState(false);
+  const [failed, setFailed] = useState(false);
+
+  const loadAnswers = async () => {
+    if (answers || loading) return;
+    setLoading(true);
+    setFailed(false);
+    try {
+      // Replay scoring reads the full answer list without recording another play.
+      const outcome = await sendAnswer(date, result.promptId, result.stationId, true, true);
+      if (outcome.kind !== "result" || !outcome.result.answers) throw new Error("Missing answers");
+      setAnswers(outcome.result.answers.map((answer) => answer.id === result.stationId && result.correct ? { ...answer, tier: result.tier } : answer));
+    } catch {
+      setFailed(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <details className="recap-answers">
-      <summary>{result.answers ? `See all ${answers.length} answers` : "See saved answer samples"}</summary>
-      <p className="recap-rarity">
-        {result.players < FEW_PLAYERS ? "Estimated shares, based partly on station passenger numbers." : "Shares include an estimate based on station passenger numbers."}
-        {" "}Rarity is from when you answered; lower percentages mean rarer answers.
-        {!result.answers && " This older game only saved the most common answers and a few deep cuts."}
-      </p>
+    <details className="recap-answers" onToggle={(event) => { if (event.currentTarget.open) void loadAnswers(); }}>
+      <summary>Show answers</summary>
+      {loading && <p role="status">Loading answers…</p>}
+      {failed && <p role="status">Couldn't load answers. <button className="secondary" onClick={loadAnswers}>Try again</button></p>}
       <ul className="recap-answer-list">
-        {answers.map((answer) => (
+        {answers?.map((answer) => (
           <li key={answer.id} className={answer.id === result.stationId ? "recap-mine" : undefined}>
             <span>{stations.get(answer.id)?.name ?? answer.id}{answer.id === result.stationId && <strong> · You</strong>}</span>
-            <span className="recap-answer-rarity">
-              {answer.tier && <span className={`recap-tier tier-${answer.tier}`}>{TIERS[answer.tier].name}</span>}
-              <span>{percent(answer.share)}</span>
+            <span className="recap-answer-rarity" aria-label={`${TIERS[answer.tier].name}, ${pointsFor(answer.tier, interchange)} points`}>
+              <span aria-hidden>{TIERS[answer.tier].emoji}</span>
+              <span>+{pointsFor(answer.tier, interchange)}</span>
             </span>
           </li>
         ))}
