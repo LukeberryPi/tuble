@@ -1214,7 +1214,7 @@ button {
 
 .recap-row {
   display: grid;
-  grid-template-columns: 28px 1fr auto;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
   align-items: center;
   gap: 10px;
   padding: 12px 0;
@@ -1237,6 +1237,58 @@ button {
   font-size: 19px;
 }
 
+.recap-rarity {
+  display: block;
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.recap-answers {
+  grid-column: 2 / -1;
+  min-width: 0;
+  font-size: 15px;
+}
+
+.recap-answers summary {
+  color: var(--blue);
+  cursor: pointer;
+}
+
+.recap-answers summary:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+}
+
+.recap-answer-list {
+  max-height: 360px;
+  overflow-y: auto;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.recap-answer-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-top: 1px solid var(--rule);
+}
+
+.recap-answer-rarity {
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.recap-mine strong {
+  color: var(--blue);
+}
+
 .recap-wrong {
   text-decoration: line-through;
   text-decoration-color: var(--red);
@@ -1257,7 +1309,7 @@ button {
   white-space: nowrap;
 }
 
-.tier-lost-train .recap-tier {
+.tier-lost-train > .recap-score .recap-tier {
   color: var(--ink);
 }
 
