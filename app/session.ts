@@ -1,4 +1,5 @@
 import type { AnswerResult, TodayResponse } from "../src/game/api.ts";
+import type { Strike, StrikesResponse } from "../src/game/strikes.ts";
 
 /** A player's progress through one day's puzzle, saved in the browser. */
 export type Progress = {
@@ -68,4 +69,35 @@ export async function sendAnswer(date: string, promptId: string, stationId: stri
   if (response.status === 422 && !timeUp) return { kind: "wrong" };
   if (!response.ok) throw new Error(`POST /api/answer: ${response.status}`);
   return { kind: "result", result: (await response.json()) as AnswerResult };
+}
+
+/** Strikes in the next week. Never fails: the game works without it. */
+export async function fetchStrikes(): Promise<Strike[]> {
+  try {
+    const response = await fetch("/api/strikes");
+    if (!response.ok) return [];
+    return ((await response.json()) as StrikesResponse).strikes;
+  } catch {
+    return [];
+  }
+}
+
+const STRIKES_SEEN_KEY = "tuble:strikes-seen";
+/** The strike warning shows once a day, and again if the strikes change. */
+const strikesSeenValue = (date: string, strikes: Strike[]) => `${date}|${strikes.map((strike) => `${strike.start}/${strike.end}`).join(",")}`;
+
+export function strikesSeen(date: string, strikes: Strike[]): boolean {
+  try {
+    return localStorage.getItem(STRIKES_SEEN_KEY) === strikesSeenValue(date, strikes);
+  } catch {
+    return false;
+  }
+}
+
+export function markStrikesSeen(date: string, strikes: Strike[]): void {
+  try {
+    localStorage.setItem(STRIKES_SEEN_KEY, strikesSeenValue(date, strikes));
+  } catch {
+    // Blocked storage: the warning shows again next time.
+  }
 }

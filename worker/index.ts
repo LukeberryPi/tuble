@@ -5,6 +5,7 @@ import { addDays, londonDate, modesOn, puzzleNumber, stationsOn, usageOn } from 
 import { resultFor } from "../src/game/result.ts";
 import { scheduleFor, type DayPrompt, type ScheduleDay } from "../src/game/schedule.ts";
 import { likelihoodFor } from "../src/game/score.ts";
+import { parseStrikes, STRIKES_URL, upcomingStrikes, type StrikesResponse } from "../src/game/strikes.ts";
 import type { Network } from "../src/network.ts";
 
 const network = networkJson as Network;
@@ -106,12 +107,33 @@ async function answer(request: Request, env: Env, now: Date): Promise<Response> 
   return Response.json(result);
 }
 
+/** No strikes if TfL's page can't be read: the game doesn't depend on it. */
+async function strikes(now: Date, ctx: ExecutionContext): Promise<Response> {
+  let body: StrikesResponse = { strikes: [] };
+  try {
+    // TfL's page says not to cache it, so we keep it for an hour ourselves rather than fetch it for every player.
+    let page = await caches.default.match(STRIKES_URL);
+    if (!page) {
+      const fresh = await fetch(STRIKES_URL);
+      if (fresh.ok) {
+        page = new Response(await fresh.text(), { headers: { "cache-control": "public, max-age=3600" } });
+        ctx.waitUntil(caches.default.put(STRIKES_URL, page.clone()));
+      }
+    }
+    if (page) body = { strikes: upcomingStrikes(parseStrikes(await page.text()), now) };
+  } catch (cause) {
+    console.error(cause);
+  }
+  return Response.json(body, { headers: { "cache-control": "public, max-age=600" } });
+}
+
 export default {
-  async fetch(request, env): Promise<Response> {
+  async fetch(request, env, ctx): Promise<Response> {
     const url = new URL(request.url);
     const now = new Date();
     try {
       if (url.pathname === "/api/today" && request.method === "GET") return today(now);
+      if (url.pathname === "/api/strikes" && request.method === "GET") return await strikes(now, ctx);
       if (url.pathname === "/api/answer" && request.method === "POST") return await answer(request, env, now);
       return error(404, "Not found.");
     } catch (cause) {

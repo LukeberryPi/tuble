@@ -1,14 +1,15 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type FormEvent, type ReactNode } from "react";
 import type { AnswerResult, TodayPrompt, TodayResponse } from "../src/game/api.ts";
-import { msUntilNextPuzzle } from "../src/game/day.ts";
+import { londonDate, msUntilNextPuzzle } from "../src/game/day.ts";
 import { createMatcher } from "../src/game/match.ts";
 import { pointsFor, TIERS, type TierId } from "../src/game/score.ts";
+import { STRIKES_URL, type Strike } from "../src/game/strikes.ts";
 import { LINES, lineLabel, type Mode } from "../src/lines.ts";
 import { pickFacts } from "./facts.ts";
 import { Platform, type TrainState } from "./Platform.tsx";
 import { Roundel } from "./Roundel.tsx";
 import { scoreImage } from "./scoreImage.ts";
-import { fetchToday, loadProgress, saveProgress, sendAnswer, type Progress } from "./session.ts";
+import { fetchStrikes, fetchToday, loadProgress, markStrikesSeen, saveProgress, sendAnswer, strikesSeen, type Progress } from "./session.ts";
 
 const SECONDS_PER_PROMPT = 30;
 const PROMPT_MS = SECONDS_PER_PROMPT * 1000;
@@ -52,9 +53,11 @@ export function App() {
   const [progress, setProgress] = useState<Progress>({ results: [], startedAt: null });
   const [screen, setScreen] = useState<Screen>("intro");
   const [urgent, setUrgent] = useState(false);
+  const [strikes, setStrikes] = useState<Strike[]>([]);
 
   useEffect(() => {
     let cancelled = false;
+    fetchStrikes().then((upcoming) => !cancelled && !strikesSeen(londonDate(), upcoming) && setStrikes(upcoming));
     fetchToday()
       .then((data) => {
         if (cancelled) return;
@@ -75,9 +78,21 @@ export function App() {
     [today, progress.results, stations],
   );
 
+  // Never over a running clock: the warning waits until the round is over.
+  const strikeWarning = strikes.length > 0 && screen !== "prompt" && (
+    <StrikeWarning
+      strikes={strikes}
+      onClose={() => {
+        markStrikesSeen(londonDate(), strikes);
+        setStrikes([]);
+      }}
+    />
+  );
+
   if (loadFailed || !today) {
     return (
       <Layout station="TUBLE" train="away">
+        {strikeWarning}
         <Board left={loadFailed ? "Signal failure" : "Loading today's tuble"} right={loadFailed ? "" : "…"} />
         {loadFailed && <p className="notice">Couldn't load today's tuble. Check your connection and refresh.</p>}
       </Layout>
@@ -123,6 +138,7 @@ export function App() {
 
   return (
     <Layout today={today} station={station} train={train} urgent={screen === "prompt" && urgent} onHome={screen === "summary" ? show("intro") : undefined}>
+      {strikeWarning}
       {(screen === "prompt" || screen === "reveal") && <LineProgress results={progress.results} total={total} at={screen === "prompt" ? index : index - 1} />}
       {screen === "intro" && <Intro today={today} finished={finished} onStart={start} onScore={show("summary")} />}
       {screen === "prompt" && progress.startedAt !== null && (
@@ -182,6 +198,35 @@ function Layout(props: { today?: TodayResponse; station: string; train: TrainSta
         </p>
       </footer>
     </>
+  );
+}
+
+/** Strikes in the next week, shown as soon as the player arrives. */
+function StrikeWarning({ strikes, onClose }: { strikes: Strike[]; onClose: () => void }) {
+  const dialog = useRef<HTMLDialogElement>(null);
+  const gotIt = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!dialog.current?.open) dialog.current?.showModal();
+    gotIt.current?.focus();
+  }, []);
+  return (
+    <dialog ref={dialog} className="strike-warning" aria-labelledby="strike-warning-title" onClose={onClose}>
+      <h2 id="strike-warning-title">{strikes.length === 1 ? "Strike ahead" : "Strikes ahead"}</h2>
+      <p>TfL has {strikes.length === 1 ? "a strike" : "strikes"} planned in the next 7 days. Expect disruption:</p>
+      <ul>
+        {strikes.map((strike) => (
+          <li key={strike.start}>{strike.label}</li>
+        ))}
+      </ul>
+      <a className="secondary" href={STRIKES_URL} target="_blank" rel="noreferrer">
+        More info on tfl.gov.uk
+      </a>
+      <form method="dialog">
+        <button className="primary" ref={gotIt}>
+          Got it
+        </button>
+      </form>
+    </dialog>
   );
 }
 

@@ -374,6 +374,68 @@ button {
   animation: peck 3.4s var(--ease-in-out) infinite;
 }
 
+/* Strike warning */
+
+.strike-warning {
+  width: min(100% - 32px, 440px);
+  max-height: calc(100dvh - 32px);
+  padding: 22px 18px 20px;
+  border: 5px solid var(--red);
+  border-radius: 18px;
+  background: var(--enamel);
+  color: var(--ink);
+  box-shadow: 0 22px 44px -14px rgb(0 0 0 / 0.6);
+}
+
+.strike-warning[open] {
+  animation: screen-in 320ms var(--ease-out) both;
+}
+
+.strike-warning::backdrop {
+  background: rgb(4 6 30 / 0.6);
+}
+
+.strike-warning h2 {
+  margin: 0 0 8px;
+  color: var(--red);
+  font-size: 26px;
+  font-weight: normal;
+}
+
+.strike-warning p {
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.45;
+}
+
+.strike-warning ul {
+  margin: 12px 0 0;
+  padding-left: 20px;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-weight: bold;
+  line-height: 1.45;
+}
+
+.strike-warning li + li {
+  margin-top: 4px;
+}
+
+.strike-warning a.secondary {
+  margin-top: 20px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.strike-warning form .primary {
+  margin-top: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strike-warning[open] {
+    animation: none;
+  }
+}
+
 /* Page and panel */
 
 .page {
