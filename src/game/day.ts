@@ -85,6 +85,12 @@ export function londonDate(now = new Date()): string {
   return `${year}-${month}-${day}`;
 }
 
+/** The time in London, as YYYY-MM-DDTHH:MM. */
+export function londonDateTime(now = new Date()): string {
+  const { year, month, day, hour, minute } = londonParts(now);
+  return `${year}-${month}-${day}T${hour}:${minute}`;
+}
+
 /** Milliseconds until the next puzzle, at London midnight. */
 export function msUntilNextPuzzle(now = new Date()): number {
   const { hour, minute, second } = londonParts(now);
